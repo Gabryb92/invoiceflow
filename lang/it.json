@@ -1,0 +1,20 @@
+{
+    "Profile": "Profilo",
+    "Register": "Registrati",
+    "Log in": "Accedi",
+    "Log Out": "Esci",
+    "Already registered?": "Già registrato?",
+    "Forgot your password?": "Password dimenticata?",
+    "Remember me": "Ricorda accesso",
+    "You're logged in!": "Login eseguito!",
+    "Profile Information": "Informazioni Profilo",
+    "Update your account's profile information and email address.": "Aggiorna le informazioni del tuo account.",
+    "Update Password": "Aggiorna Password",
+    "Ensure your account is using a long, random password to stay secure.": "Assicurati che il tuo account utilizzi una password lunga e casuale per rimanere sicuro.",
+    "Current Password": "Password Attuale",
+    "New Password": "Nuova Password",
+    "Confirm Password": "Conferma Password",
+    "Save": "Salva",
+    "Delete Account": "Elimina Account",
+    "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "Una volta eliminato il tuo account, tutte le sue risorse e i suoi dati verranno eliminati definitivamente. Prima di eliminare il tuo account, scarica tutti i dati o le informazioni che desideri conservare."
+}
