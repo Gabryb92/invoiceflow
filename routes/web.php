@@ -1,15 +1,23 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Clients\ClientList;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    //Clienti
+    Route::get('/clienti',ClientList::class)->name('clienti.index');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
