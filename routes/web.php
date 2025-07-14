@@ -21,6 +21,7 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     Route::get('/clienti/create', ClientForm::class)->name('clienti.create');
 });
     
+
  
 
 Route::middleware('auth')->group(function () {

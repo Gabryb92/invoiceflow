@@ -30,10 +30,14 @@
     "City": "Città",
     "Zip Code": "Codice Postale",
     "Province": "Provincia",
+    "Select Province": "Seleziona Provincia",
     "Country": "Paese",
     "Vat Number": "P.Iva",
     "Fiscal Code": "Codice Fiscale",
     "Notes": "Note",
     "Deleted At": "Non più cliente dal",
-    "Actions": "Azioni"
+    "Actions": "Azioni",
+    "Client created successfully.": "Cliente creato con successo.",
+    "Client updated successfully.": "Cliente aggiornato con successo.",
+    "Client Information": "Informazioni Cliente"
 }

@@ -58,7 +58,7 @@
                         {{ $client->fiscal_code }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="text-blue-500 hover:text-blue-700">Edit</a>
+                        <a href="{{ route('clienti.create') }}" class="text-blue-500 hover:text-blue-700">Edit</a>
                         <a href="#" class="text-red-500 hover:text-red-700 ml-2">Delete</a>
                     </td>
                 </tr>
