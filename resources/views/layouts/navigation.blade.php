@@ -22,6 +22,12 @@
                         {{ __('Clienti') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('fatture.index')" :active="request()->routeIs('fatture.index')">
+                        {{ __('Invoices') }}
+                    </x-nav-link>
+                </div>
                 
             </div>
 
@@ -82,6 +88,13 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('clienti.index')" :active="request()->routeIs('clienti.index')">
                 {{ __('Clienti') }}
+            </x-responsive-nav-link>
+        </div>
+
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('fatture.index')" :active="request()->routeIs('fatture.index')">
+                {{ __('Fatture') }}
             </x-responsive-nav-link>
         </div>
 

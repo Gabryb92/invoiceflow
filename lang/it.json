@@ -48,5 +48,12 @@
     "Client restored successfully.": "Cliente ripristinato con successo.",
     "Delete": "Elimina",
     "Archive": "Archivia",
-    "Restore": "Ripristina"
+    "Restore": "Ripristina",
+    "Invoices": "Fatture",
+    "Add Invoice": "Aggiungi Fattura",
+    "Invoice Number": "Numero Fattura",
+    "Issue Date": "Data Emissione",
+    "Due Date": "Data Scadenza",
+    "Status": "Stato",
+    "Total": "Totale"
 }

@@ -4,10 +4,12 @@ use App\Livewire\TestPaginator;
 use App\Livewire\Clients\ClientForm;
 use App\Livewire\Clients\ClientList;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Invoices\InvoiceForm;
+use App\Livewire\Invoices\InvoiceList;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/dashboard', function () {
+    return view('dashboard');
 });
 
 
@@ -23,6 +25,9 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     Route::get('/clienti/create', ClientForm::class)->name('clienti.create');
     Route::get('/clienti/{client}/edit', ClientForm::class)->name('clienti.edit');
 
+    //Fatture
+    Route::get('/fatture',InvoiceList::class)->name('fatture.index');
+    Route::get('/fatture/create', InvoiceForm::class)->name('fatture.create');
 });
     
 
