@@ -18,7 +18,11 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
 
     //Clienti
     Route::get('/clienti',ClientList::class)->name('clienti.index');
+
+    //Il componente livewire è lo stesso per entrambi i casi!
     Route::get('/clienti/create', ClientForm::class)->name('clienti.create');
+    Route::get('/clienti/{client}/edit', ClientForm::class)->name('clienti.edit');
+
 });
     
 

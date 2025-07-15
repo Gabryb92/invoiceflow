@@ -1,5 +1,5 @@
 <div>
-    <x-slot name="header" class="">
+    <x-slot name="header">
         <div class="flex ml-auto justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Add Client') }}
@@ -15,7 +15,7 @@
             <x-alert />
 
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Client Information')}}</h2>
-            <form wire:submit.prevent="save" wire:key="client-form-{{ $client->id ?? 'new' }}">
+            <form wire:submit.prevent="save">
                 <div class="grid gap-4 sm:grid-cols-4 sm:gap-4">
                 
 
