@@ -30,7 +30,7 @@
         </svg>
         <span class="sr-only">Info</span>
         <div>
-            <span class="font-medium">{{ $alertMessage }}</span>
+            <span class="font-medium">{{ __($alertMessage) }}</span>
         </div>
     </div>
 

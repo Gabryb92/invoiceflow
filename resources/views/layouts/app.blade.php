@@ -30,6 +30,7 @@
             @endisset
 
             <!-- Page Content -->
+            <x-alert/>
             <main>
                 {{ $slot }}
             </main>

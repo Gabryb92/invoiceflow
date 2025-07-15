@@ -39,5 +39,14 @@
     "Actions": "Azioni",
     "Client created successfully.": "Cliente creato con successo.",
     "Client updated successfully.": "Cliente aggiornato con successo.",
-    "Client Information": "Informazioni Cliente"
+    "Client Information": "Informazioni Cliente",
+    "Are you sure you want to archive this client?": "Sei sicuro di voler archiviare questo cliente?",
+    "Client archived successfully.": "Cliente archiviato con successo.",
+    "Are you sure you want to permanently delete this client?": "Sei sicuro di voler eliminare definitivamente questo cliente?",
+    "Client permanently deleted successfully.": "Cliente eliminato definitivamente con successo.",
+    "Are you sure you want to restore this client?": "Sei sicuro di voler ripristinare questo cliente?",
+    "Client restored successfully.": "Cliente ripristinato con successo.",
+    "Delete": "Elimina",
+    "Archive": "Archivia",
+    "Restore": "Ripristina"
 }

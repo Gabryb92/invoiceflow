@@ -15,6 +15,24 @@ class ClientList extends Component
     
     public $showArchived = false;
 
+
+    public function archiveClient($clientId){
+        $client = Client::withTrashed()->findOrFail($clientId);
+        $client->delete();
+        session()->flash('message', 'Client archived successfully.');
+    }
+
+    public function forceDelete($clientId){
+        $client = Client::withTrashed()->findOrFail($clientId);
+        $client->forceDelete();
+        session()->flash('message', 'Client permanently deleted successfully.');
+    }
+
+    public function restoreClient($clientId){
+        $client = Client::withTrashed()->findOrFail($clientId);
+        $client->restore();
+        session()->flash('message', 'Client restored successfully.');
+    }
     
     public function render()
     {
