@@ -8,8 +8,8 @@ use App\Livewire\Invoices\InvoiceForm;
 use App\Livewire\Invoices\InvoiceList;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/login', function () {
+    return view('login');
 });
 
 
