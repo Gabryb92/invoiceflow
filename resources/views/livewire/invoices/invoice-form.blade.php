@@ -14,12 +14,14 @@
         <section class="w-full mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="p-6 text-gray-900 dark:text-gray-100 ">
                     <x-alert />
 
-                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Invoice Dates')}}</h2>
-                    <form wire:submit.prevent="save">
-                        <div class="grid gap-4 sm:grid-cols-4 sm:gap-4">
+                    <form wire:submit.prevent="save" class="grid sm:grid-cols-2">
+                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Invoice Dates')}}</h2>
+                        
+
+                        <div class="grid gap-4 sm:grid-cols-4 sm:gap-4 sm:col-span-2">
                         
 
                             <div class="sm:col-span-2">
@@ -72,55 +74,26 @@
                                 @error('notes') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
 
-                        </div>
-                        
+                            <div class="sm:col-span-4 flex justify-end">
+                                {{-- <x-primary-button class="mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
+                                {{-- <x-primary-button class="sm:col-span-1 mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
+                                <x-primary-button class="mr-2  sm:mr-2">
+                                    {{ __('Save') }}
+                                </x-primary-button>
 
-                        <x-primary-button class="mt-4 mr-2 sm:mt-4 sm:mr-2">
-                            {{ __('Save') }}
-                        </x-primary-button>
-
-                        <a href="{{ route('clienti.index') }}" class="inline-flex items-center px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">Indietro</a>
-
-                        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Riepilogo</h3>
-
-                            <div class="mt-4 space-y-2 max-w-sm ml-auto">
-                                
-                                {{-- RIGA IMPONIBILE --}}
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600 dark:text-gray-400">Imponibile (Subtotale):</span>
-                                    <span class="font-semibold text-gray-900 dark:text-white">
-                                        € {{ number_format($this->calculatedTotals['subtotal'], 2, ',', '.') }}
-                                    </span>
-                                </div>
-
-                                {{-- RIGA IVA --}}
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600 dark:text-gray-400">Totale IVA:</span>
-                                    <span class="font-semibold text-gray-900 dark:text-white">
-                                        € {{ number_format($this->calculatedTotals['vat_amount'], 2, ',', '.') }}
-                                    </span>
-                                </div>
-
-                                {{-- Puoi aggiungere qui Sconti e Spedizioni se vuoi mostrarli nel riepilogo --}}
-                                
-                                {{-- RIGA TOTALE FINALE --}}
-                                <div class="flex justify-between items-center text-xl border-t border-gray-300 dark:border-gray-600 mt-2 pt-2">
-                                    <span class="font-bold text-gray-900 dark:text-white">TOTALE</span>
-                                    <span class="font-bold text-gray-900 dark:text-white">
-                                        € {{ number_format($this->calculatedTotals['total'], 2, ',', '.') }}
-                                    </span>
-                                </div>
-
+                                <a href="{{ route('clienti.index') }}" class="inline-flex items-center px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">{{__('Back')}}</a>
                             </div>
+
+                            
+
                         </div>
 
 
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+                        <h3 class="sm:col-span-2 text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
                             Voci Fattura
                         </h3>
 
-                        <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <div class="sm:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                             <div class="overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-700 text-gray-200">
                                     <thead class="font-bold bg-gray-800">
@@ -197,14 +170,17 @@
                             </div>
                         </div>
 
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-                            {{ __('Add Products') }}
-                        </h3>
+                        <div class="sm:col-span-2 mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
+                                {{ __('Add Products') }}
+                            </h3>
 
-                        <div class="flex flex-col gap-4">
+                            {{-- <div class="flex flex-col gap-4"> --}}
+                            <div class="grid grid-cols-2 gap-4">
+
                             {{-- Loop through products --}}
                             @foreach ($products as $product)
-                                <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-between">
+                                <div class="p-2 bg-gray-50 border border-gray-500 dark:bg-gray-800 rounded-lg flex items-center justify-between">
                                     <span class="font-medium text-sm text-gray-800 dark:text-gray-200">{{ $product->name }}</span>
                                     
                                     {{-- Questo pulsante chiama il metodo che abbiamo già creato --}}
@@ -214,6 +190,41 @@
                                 </div>
                             @endforeach
                         </div>
+
+                        </div>
+                        
+
+                        <div class="sm:col-span-2 grid grid-cols-1  mt-4 pt-2">
+
+                            <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Resume')}}</h2>
+                                
+                                {{-- RIGA IMPONIBILE --}}
+                                <div class="sm:col-span-2 flex justify-between items-center">
+                                    <span class=" text-gray-600 dark:text-gray-400">Imponibile (Subtotale):</span>
+                                    <span class="font-semibold text-gray-900 dark:text-white">
+                                        € {{ number_format($this->calculatedTotals['subtotal'], 2, ',', '.') }}
+                                    </span>
+                                </div>
+
+                                {{-- RIGA IVA --}}
+                                <div class="sm:col-span-2 flex justify-between items-center">
+                                    <span class="text-gray-600 dark:text-gray-400">Totale IVA:</span>
+                                    <span class="font-semibold text-gray-900 dark:text-white">
+                                        € {{ number_format($this->calculatedTotals['vat_amount'], 2, ',', '.') }}
+                                    </span>
+                                </div>
+
+                                {{-- Puoi aggiungere qui Sconti e Spedizioni se vuoi mostrarli nel riepilogo --}}
+                                
+                                {{-- RIGA TOTALE FINALE --}}
+                                <div class="sm:col-span-1 flex justify-between items-center text-xl border-t border-gray-300 dark:border-gray-600 mt-2 pt-2">
+                                    <span class="font-bold text-gray-900 dark:text-white">TOTALE</span>
+                                    <span class="font-bold text-gray-900 dark:text-white">
+                                        € {{ number_format($this->calculatedTotals['total'], 2, ',', '.') }}
+                                    </span>
+                                </div>
+
+                            </div>
 
                     </form>
                 </div>

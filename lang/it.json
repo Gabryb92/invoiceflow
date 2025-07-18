@@ -49,6 +49,7 @@
     "Are you sure you want to restore this client?": "Sei sicuro di voler ripristinare questo cliente?",
     "Client restored successfully.": "Cliente ripristinato con successo.",
     "Delete": "Elimina",
+    "Back": "Indietro",
     "Archive": "Archivia",
     "Restore": "Ripristina",
     "Invoices": "Fatture",
@@ -71,5 +72,6 @@
     "Quantity": "Quantità",
     "Add a voice to begun": "Aggiungi una voce per iniziare",
     "Add Products": "Aggiungi Prodotti",
+    "Resume": "Riepilogo",
     "Remove": "Rimuovi"
 }
