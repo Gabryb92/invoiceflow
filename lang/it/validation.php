@@ -173,8 +173,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+    'invoiceItems' => [
+        'required' => 'È necessario aggiungere almeno una voce alla fattura.',
+        'min' => 'È necessario aggiungere almeno una voce alla fattura.',
         ],
     ],
 
@@ -190,19 +191,36 @@ return [
     */
 
     'attributes' => [
-        'first_name'   => 'Nome',
-        'last_name'    => 'Cognome',
-        'company_name' => 'Ragione Sociale',
-        'email'        => 'Indirizzo Email',
-        'phone'        => 'Telefono',
-        'address'      => 'Indirizzo',
-        'city'         => 'Città',
-        'province'     => 'Provincia',
-        'zip_code'     => 'CAP',
-        'country'      => 'Paese',
-        'vat_number'   => 'Partita IVA',
-        'fiscal_code'  => 'Codice Fiscale',
-        'notes'        => 'Note',
+    // --- Campi Cliente ---
+    'first_name'   => 'Nome',
+    'last_name'    => 'Cognome',
+    'company_name' => 'Ragione Sociale',
+    'email'        => 'Indirizzo Email',
+    'phone'        => 'Telefono',
+    'address'      => 'Indirizzo',
+    'city'         => 'Città',
+    'province'     => 'Provincia',
+    'zip_code'     => 'CAP',
+    'country'      => 'Paese',
+    'vat_number'   => 'Partita IVA',
+    'fiscal_code'  => 'Codice Fiscale',
+    
+    // --- Campi Fattura ---
+    'client_id'       => 'Cliente',
+    'invoice_number'  => 'Numero Fattura',
+    'issue_date'      => 'Data di Emissione',
+    'due_date'        => 'Data di Scadenza',
+    'status'          => 'Stato',
+    'shipping_amount' => 'Costo di Spedizione',
+    'discount_amount' => 'Sconto',
+    'notes'           => 'Note',
+
+    // --- Campi Voci Fattura ---
+    'invoiceItems'              => 'Voci Fattura',
+    'invoiceItems.*.description' => 'Descrizione',
+    'invoiceItems.*.quantity'    => 'Quantità',
+    'invoiceItems.*.unit_price'  => 'Prezzo Unitario',
+    'invoiceItems.*.vat_rate'    => 'Aliquota IVA',
     ],
 
 ];

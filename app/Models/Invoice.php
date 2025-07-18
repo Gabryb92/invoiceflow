@@ -43,4 +43,12 @@ class Invoice extends Model
     public function invoiceItems(){
         return $this->hasMany(InvoiceItem::class);
     }
+
+    public function createInvoiceItems(array $items)
+    {
+        foreach ($items as $item) {
+            // Usa la relazione 'invoiceItems()' per creare ogni singola voce
+            $this->invoiceItems()->create($item);
+        }
+    }
 }

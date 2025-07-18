@@ -28,6 +28,7 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     //Fatture
     Route::get('/fatture',InvoiceList::class)->name('fatture.index');
     Route::get('/fatture/create', InvoiceForm::class)->name('fatture.create');
+    Route::get('/fatture/{invoice}/edit', InvoiceForm::class)->name('fatture.edit');
 });
     
 

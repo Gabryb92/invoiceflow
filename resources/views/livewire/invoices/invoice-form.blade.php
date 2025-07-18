@@ -74,15 +74,7 @@
                                 @error('notes') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="sm:col-span-4 flex justify-end">
-                                {{-- <x-primary-button class="mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
-                                {{-- <x-primary-button class="sm:col-span-1 mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
-                                <x-primary-button class="mr-2  sm:mr-2">
-                                    {{ __('Save') }}
-                                </x-primary-button>
-
-                                <a href="{{ route('clienti.index') }}" class="inline-flex items-center px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">{{__('Back')}}</a>
-                            </div>
+                            
 
                             
 
@@ -92,6 +84,12 @@
                         <h3 class="sm:col-span-2 text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
                             Voci Fattura
                         </h3>
+
+                        @error('invoiceItems')
+                            <div class="sm:col-span-2 p-4 mb-4 text-center text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
 
                         <div class="sm:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                             <div class="overflow-x-auto">
@@ -194,7 +192,7 @@
                         </div>
                         
 
-                        <div class="sm:col-span-2 grid grid-cols-1  mt-4 pt-2">
+                        <div class="sm:col-span-2 grid grid-cols-1  my-4 pt-2">
 
                             <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Resume')}}</h2>
                                 
@@ -224,6 +222,16 @@
                                     </span>
                                 </div>
 
+                            </div>
+
+                            <div class="sm:col-span-2 mt-4 flex justify-end">
+                                {{-- <x-primary-button class="mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
+                                {{-- <x-primary-button class="sm:col-span-1 mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
+                                <x-primary-button class="mr-2  sm:mr-2">
+                                    {{ __('Save') }}
+                                </x-primary-button>
+
+                                <a href="{{ route('clienti.index') }}" class="inline-flex items-center px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">{{__('Back')}}</a>
                             </div>
 
                     </form>
