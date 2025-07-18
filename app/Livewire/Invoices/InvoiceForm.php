@@ -223,6 +223,8 @@ class InvoiceForm extends Component
         
     }
 
+    
+
     public function render()
     {
         $products = Product::orderBy('name')->get();

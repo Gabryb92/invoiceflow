@@ -54,6 +54,7 @@
     "Restore": "Ripristina",
     "Invoices": "Fatture",
     "Add Invoice": "Aggiungi Fattura",
+    "Invoice Information": "Informazioni Fattura",
     "Invoice Dates": "Dati Fattura",
     "Invoice Number": "Numero Fattura",
     "Issue Date": "Data Emissione",
@@ -73,5 +74,7 @@
     "Add a voice to begun": "Aggiungi una voce per iniziare",
     "Add Products": "Aggiungi Prodotti",
     "Resume": "Riepilogo",
-    "Remove": "Rimuovi"
+    "Remove": "Rimuovi",
+    "Are you sure you want to delete this invoice?": "Sei sicuro di voler eliminare questa fattura?",
+    "Invoice permanently deleted successfully.": "Fattura eliminata correttamente"
 }

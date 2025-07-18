@@ -7,7 +7,7 @@
         </div>
     </x-slot>
 
-
+    
 
     <div class="max-w-7xl flex justify-end ml-auto py-6 px-4 sm:px-6 lg:px-8">
         
@@ -20,7 +20,9 @@
         </div>
     </div>
 
+
     <x-alert />
+    
 
     <div class="border border-gray-700 rounded-lg overflow-hidden">
         
@@ -75,7 +77,7 @@
                     <td class="px-6 py-4 whitespace-nowrap flex gap-2">
                         <a href="{{ route('fatture.edit',compact('invoice')) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Edit</a>
                         <x-danger-button 
-                            {{-- wire:click="deleteInvoice({{ $invoice->id }})" --}}
+                            wire:click="deleteInvoice({{ $invoice->id }})"
                             wire:confirm="{{ __('Are you sure you want to delete this invoice?') }}">
                             {{ __('Delete') }}
                         </x-danger-button>
