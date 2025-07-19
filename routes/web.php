@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Invoices\InvoiceForm;
 use App\Livewire\Invoices\InvoiceList;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InvoicePdfController;
 
 Route::get('/login', function () {
     return view('login');
@@ -29,6 +30,9 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     Route::get('/fatture',InvoiceList::class)->name('fatture.index');
     Route::get('/fatture/create', InvoiceForm::class)->name('fatture.create');
     Route::get('/fatture/{invoice}/edit', InvoiceForm::class)->name('fatture.edit');
+
+    //PDF Fatture
+    Route::get('/fatture/{invoice}/pdf', [InvoicePdfController::class, 'downloadPdf'])->name('fatture.pdf');
 });
     
 

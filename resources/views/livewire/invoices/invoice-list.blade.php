@@ -76,11 +76,13 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap flex gap-2">
                         <a href="{{ route('fatture.edit',compact('invoice')) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">{{__('Edit')}}</a>
+                        <a href="{{ route('fatture.pdf',compact('invoice')) }}" class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-500 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">PDF</a>
                         <x-danger-button 
                             wire:click="deleteInvoice({{ $invoice->id }})"
                             wire:confirm="{{ __('Are you sure you want to delete this invoice?') }}">
                             {{ __('Delete') }}
                         </x-danger-button>
+
                     </td>
                 </tr>
             @empty
