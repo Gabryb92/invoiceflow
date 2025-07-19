@@ -8,6 +8,7 @@ use App\Livewire\Invoices\InvoiceForm;
 use App\Livewire\Invoices\InvoiceList;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoicePdfController;
+use App\Livewire\Products\ProductList;
 
 Route::get('/login', function () {
     return view('login');
@@ -33,6 +34,11 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
 
     //PDF Fatture
     Route::get('/fatture/{invoice}/pdf', [InvoicePdfController::class, 'downloadPdf'])->name('fatture.pdf');
+
+    //Prodotti
+    Route::get('/prodotti', ProductList::class)->name('prodotti.index');
+    Route::get('/prodotti/create', ProductList::class)->name('prodotti.create');
+    Route::get('/prodotti/{products}/edit', ProductList::class)->name('prodotti.edit');
 });
     
 
