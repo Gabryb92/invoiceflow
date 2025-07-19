@@ -243,7 +243,7 @@
 
         .invoice-footer {
             position: fixed;
-            bottom: 0;
+            bottom: -80;
             left: 0;
             right: 0;
             text-align: center; /* Cruciale per centrare il blocco interno */
@@ -321,9 +321,12 @@
         <div class="invoice-header">
             <div class="header-row">
                 <div class="header-left">
-                    <div class="logo-section">
-                        {{-- <img src="{{ asset('/img/logo.webp') }}" class="logo-svg" alt="Logo Web Developer"> --}}
+                    <div class="logo-section" style="display: flex; align-items: center;">
+    
+                        <img src="{{ $logo }}" style="width: 60px; height: auto; margin-right: 15px;" alt="Logo">
+                        
                         <h1 class="company-name">Gabriele Bonazza - Developer</h1>
+
                     </div>
                 </div>
                 <div class="header-right">
