@@ -227,6 +227,7 @@ class InvoiceForm extends Component
 
     public function render()
     {
+        //dd(Product::orderBy('name')->toSql());
         $products = Product::orderBy('name')->get();
         $clients = Client::orderBy('company_name')->orderBy('last_name')->get();
         return view('livewire.invoices.invoice-form',compact('products','clients'))->layout('layouts.app');

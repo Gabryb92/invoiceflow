@@ -9,7 +9,12 @@
 
     <div class="max-w-7xl flex justify-end ml-auto py-6 px-4 sm:px-6 lg:px-8">
         
-        <div class="flex items-center flex-row space-x-4">    
+        <div class="flex items-center flex-row space-x-4"> 
+            
+            <select wire:model.live="showArchived" class="block  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                <option value="0">Prodotti Attivi</option>
+                <option value="1">Prodotti Archiviati</option>
+            </select>
             
             
             <a href="{{ route('prodotti.create') }}" class="flex flex-row items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
@@ -20,6 +25,8 @@
 
 
     <x-alert />
+
+    
 
 
     <div class="border border-gray-700 rounded-lg overflow-hidden m-2">
@@ -56,11 +63,25 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap flex gap-2 justify-center">
                         <a href="#" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">{{__('Edit')}}</a>
+                        @if($showArchived)
+                            <x-restore-button 
+                                wire:click="restoreProduct({{ $product->id }})"
+                                wire:confirm="{{ __('Are you sure you want to restore this product?') }}">
+                                {{ __('Restore') }}
+                            </x-restore-button>
+                            <x-danger-button 
+                                wire:click="forceDelete({{ $product->id }})"
+                                wire:confirm="{{ __('Are you sure you want to permanently delete this product?') }}">
+                                {{ __('Delete') }}
+                            </x-danger-button>
+                            
+                        @else
                         <x-danger-button 
-                            wire:click="deleteProduct({{ $product->id }})"
-                            wire:confirm="{{ __('Are you sure you want to delete this product?') }}">
-                            {{ __('Delete') }}
+                            wire:click="archiveProduct({{ $product->id }})"
+                            wire:confirm="{{ __('Are you sure you want to archive this product?') }}">
+                            {{ __('Archive') }}
                         </x-danger-button>
+                        @endif
 
                     </td>
                 </tr>

@@ -80,5 +80,15 @@
     "Invoice permanently deleted successfully.": "Fattura eliminata correttamente",
     "Products": "Prodotti",
     "Add Product": "Aggiungi Prodotto",
-    "Are you sure you want to archive this product?": "Sei sicuro di voler archiviare questo prodotto"
+    "Are you sure you want to archive this product?": "Sei sicuro di voler archiviare questo prodotto?",
+    "Are you sure you want to restore this product?": "Sei sicuro di voler ripristinare questo prodotto?",
+    "Are you sure you want to permanently delete this product?": "Sei sicuro di voler eliminare definitivamente questo prodotto?",
+    "Product Information": "Informazioni Prodotto",
+    "Default Unit Price": "Prezzo no IVA",
+    "Default Vat Rate": "IVA",
+    "Product archived successfully.": "Prodotto archiviato correttamente.",
+    "Product updated successfully.": "Prodotto aggiornato correttamente.",
+    "Product created successfully.": "Prodotto aggiunto correttamente.",
+    "Product restored successfully.": "Prodotto ripristinato correttamente.",
+    "Product permanently deleted successfully.": "Prodotto eliminato definitivamente."
 }

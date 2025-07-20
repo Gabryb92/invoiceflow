@@ -221,6 +221,12 @@ return [
     'invoiceItems.*.quantity'    => 'Quantità',
     'invoiceItems.*.unit_price'  => 'Prezzo Unitario',
     'invoiceItems.*.vat_rate'    => 'Aliquota IVA',
+
+    // --- Campi Prodotto ---
+    'name' => 'Nome',
+    "description" => "Descrizione",
+    "default_vat_rate" => "IVA",
+    "default_unit_price" => "Prezzo no IVA",
     ],
 
 ];
