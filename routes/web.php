@@ -10,6 +10,7 @@ use App\Livewire\Products\ProductForm;
 use App\Livewire\Products\ProductList;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoicePdfController;
+use App\Livewire\Clients\ClientShow;
 
 Route::get('/login', function () {
     return view('login');
@@ -27,6 +28,10 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     //Il componente livewire è lo stesso per entrambi i casi!
     Route::get('/clienti/create', ClientForm::class)->name('clienti.create');
     Route::get('/clienti/{client}/edit', ClientForm::class)->name('clienti.edit');
+
+    //Pagina dettaglio Cliente (Show)
+    Route::get('/clienti/{client}', ClientShow::class)->name('clienti.show');
+    
 
     //Fatture
     Route::get('/fatture',InvoiceList::class)->name('fatture.index');

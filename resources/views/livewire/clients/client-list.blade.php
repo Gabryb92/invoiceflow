@@ -52,7 +52,7 @@
             @forelse ($clients as $client)
                 <tr wire:key="client-{{ $client->id }}">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $client->company_name ?? $client->first_name . ' ' . $client->last_name }}
+                        <a href="{{ route('clienti.show',compact('client')) }}">{{ $client->company_name ?? $client->first_name . ' ' . $client->last_name }}</a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $client->email }}
