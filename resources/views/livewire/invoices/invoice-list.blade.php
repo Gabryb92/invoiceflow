@@ -57,7 +57,7 @@
             @forelse ($invoices as $invoice)
                 <tr wire:key="invoice-{{ $invoice->id }}">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $invoice->invoice_number }}
+                        <a href="{{ route('fatture.show',$invoice) }}">{{ $invoice->invoice_number }}</a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $invoice->client->company_name ?? $invoice->client->first_name . ' ' . $invoice->client->last_name }}

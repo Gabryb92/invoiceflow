@@ -90,5 +90,10 @@
     "Product updated successfully.": "Prodotto aggiornato correttamente.",
     "Product created successfully.": "Prodotto aggiunto correttamente.",
     "Product restored successfully.": "Prodotto ripristinato correttamente.",
-    "Product permanently deleted successfully.": "Prodotto eliminato definitivamente."
+    "Product permanently deleted successfully.": "Prodotto eliminato definitivamente.",
+    "No invoices found.": "Nessuna fattura trovata.",
+    "Client since": "Cliente dal",
+    "Location": "Località",
+    "Total invoices": "Totale fatturato",
+    "Total not paid": "Totale da pagare"
 }

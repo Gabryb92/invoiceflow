@@ -3,6 +3,7 @@
 use App\Livewire\TestPaginator;
 use App\Livewire\Clients\ClientForm;
 use App\Livewire\Clients\ClientList;
+use App\Livewire\Clients\ClientShow;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Invoices\InvoiceForm;
 use App\Livewire\Invoices\InvoiceList;
@@ -10,11 +11,11 @@ use App\Livewire\Products\ProductForm;
 use App\Livewire\Products\ProductList;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoicePdfController;
-use App\Livewire\Clients\ClientShow;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Livewire\Invoices\InvoiceShow;
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
 
 
 Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
@@ -37,6 +38,9 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     Route::get('/fatture',InvoiceList::class)->name('fatture.index');
     Route::get('/fatture/create', InvoiceForm::class)->name('fatture.create');
     Route::get('/fatture/{invoice}/edit', InvoiceForm::class)->name('fatture.edit');
+
+    //Pagina dettaglio Fattura (Show)
+    Route::get('/fatture/{invoice}', InvoiceShow::class)->name('fatture.show');
 
     //PDF Fatture
     Route::get('/fatture/{invoice}/pdf', [InvoicePdfController::class, 'downloadPdf'])->name('fatture.pdf');

@@ -7,14 +7,32 @@ use Livewire\Component;
 
 class ClientShow extends Component
 {
-     // Questo è il metodo che ti mancava
+    public $client;
+
+    public $total_of_all_invoices = 0;
+    public $total_paid = 0;
+    public $total_not_paid = 0;
+    
     public function mount(Client $client)
     {
         $this->client = $client;
+
+        $this->client->load('invoices');
     }
-    public $client;
+
+    public function calculateTotals(){
+        $invoices = $this->client->invoices;
+
+        $this->total_of_all_invoices = $invoices->where('status', '!=', 'cancelled')->sum('total');
+
+        $this->total_paid = $invoices->where('status', 'paid')->sum('total');
+        $this->total_not_paid = $this->total_of_all_invoices - $this->total_paid;
+    }
     public function render()
     {
-        return view('livewire.clients.client-show')->layout('layouts.app');
+
+        $this->calculateTotals();
+        
+        return view('livewire.clients.client-show',)->layout('layouts.app');
     }
 }
