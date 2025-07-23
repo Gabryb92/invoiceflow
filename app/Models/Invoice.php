@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Client;
+use App\Models\Payment;
 use App\Models\InvoiceItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,6 +43,10 @@ class Invoice extends Model
 
     public function invoiceItems(){
         return $this->hasMany(InvoiceItem::class);
+    }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
     }
 
     public function createInvoiceItems(array $items)
