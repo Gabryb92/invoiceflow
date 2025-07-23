@@ -23,6 +23,10 @@
                             </p>
                         </div>
                         <div class="mt-4 sm:mt-0 flex space-x-2">
+                            <x-event-button 
+                            wire:click="$dispatch('showPaymentModal',{invoice_id_from_show : {{ $invoice->id }}})">
+                                Registra Pagamento
+                            </x-event-button>
                             <a href="{{ route('fatture.edit', $invoice) }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 dark:text-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                 Modifica
@@ -146,4 +150,5 @@
             </div>
         </div>
     </div>
+    <livewire:payments.payment-form />
 </div>
