@@ -45,7 +45,7 @@
                                 <p class="text-sm">info@tuasocieta.it</p>
                             </div>
                         </div>
-                        <div>
+                        <div >
                             <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">A</h2>
                             <div class="mt-3 text-gray-800 dark:text-gray-200">
                                 <p class="font-bold">{{ $invoice->client->company_name ?? $invoice->client->first_name . ' ' . $invoice->client->last_name }}</p>
@@ -87,11 +87,11 @@
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead class="bg-gray-50 dark:bg-gray-700/50">
                                         <tr>
-                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pl-0">Descrizione</th>
-                                            <th scope="col" class="px-3 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Qtà</th>
-                                            <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Prezzo Unit.</th>
-                                            <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">IVA (%)</th>
-                                            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pr-0">Totale</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pl-2">{{__('Description')}}</th>
+                                            <th scope="col" class="px-3 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Quantity')}}</th>
+                                            <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Unit Price')}}</th>
+                                            <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Vat')}} (&percnt;)</th>
+                                            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pr-2">{{__('Total')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
@@ -117,15 +117,15 @@
                         <div class="w-full max-w-sm">
                             <dl class="space-y-4">
                                 <div class="flex justify-between">
-                                    <dt class="text-sm text-gray-600 dark:text-gray-400">Imponibile:</dt>
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">{{ __('Subtotal') }}:</dt>
                                     <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->subtotal, 2, ',', '.') }}</dd>
                                 </div>
                                 <div class="flex justify-between">
-                                    <dt class="text-sm text-gray-600 dark:text-gray-400">Totale IVA:</dt>
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">{{ __('Vat Amount') }}:</dt>
                                     <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->vat_amount, 2, ',', '.') }}</dd>
                                 </div>
                                 <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                                    <dt class="text-base font-bold text-gray-900 dark:text-gray-100">Totale da Pagare:</dt>
+                                    <dt class="text-base font-bold text-gray-900 dark:text-gray-100">{{ __('Total not paid') }}:</dt>
                                     <dd class="text-base font-bold text-indigo-600 dark:text-indigo-400">€ {{ number_format($invoice->total, 2, ',', '.') }}</dd>
                                 </div>
                             </dl>
@@ -135,7 +135,7 @@
                     {{-- 6. Note a piè di pagina --}}
                     @if($invoice->notes)
                     <div class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400">
-                        <h3 class="font-semibold text-gray-700 dark:text-gray-300">Note</h3>
+                        <h3 class="font-semibold text-gray-700 dark:text-gray-300">{{__('Notes')}}</h3>
                         <p class="mt-2">
                            {{ $invoice->notes }}
                         </p>
