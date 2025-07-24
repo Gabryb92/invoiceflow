@@ -7,6 +7,11 @@
         </div>
     </x-slot>
 
+    <div class="m-2">
+
+        <x-alert />
+    </div>
+
     {{-- Contenitore standard di Breeze per la larghezza completa --}}
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -23,10 +28,12 @@
                             </p>
                         </div>
                         <div class="mt-4 sm:mt-0 flex space-x-2">
-                            <x-event-button 
-                            wire:click="$dispatch('showPaymentModal',{invoice_id_from_show : {{ $invoice->id }}})">
+                            @unless ($invoice->status === 'paid')
+                                <x-event-button 
+                                wire:click="$dispatch('showPaymentModal',{invoice_id_from_show : {{ $invoice->id }}})">
                                 Registra Pagamento
-                            </x-event-button>
+                                </x-event-button>
+                            @endif
                             <a href="{{ route('fatture.edit', $invoice) }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 dark:text-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                 Modifica
@@ -117,7 +124,7 @@
                     </div>
 
                     {{-- 5. Totali Fattura --}}
-                    <div class="mt-8 flex justify-end">
+                    {{-- <div class="mt-8 flex justify-end">
                         <div class="w-full max-w-sm">
                             <dl class="space-y-4">
                                 <div class="flex justify-between">
@@ -128,9 +135,69 @@
                                     <dt class="text-sm text-gray-600 dark:text-gray-400">{{ __('Vat Amount') }}:</dt>
                                     <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->vat_amount, 2, ',', '.') }}</dd>
                                 </div>
+                                <div class="flex justify-between">
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">{{ __('Total Invoice') }}:</dt>
+                                    <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->total, 2, ',', '.') }}</dd>
+                                </div>
+                                @if($invoice->status === 'partially_paid')
+                                <div class="flex justify-between">
+
+                                
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">{{ __('Di cui pagati') }}:</dt>
+                                    <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($this->amountPaid, 2, ',', '.') }}</dd>
+                                </div>
+
+                                <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <dt class="text-base font-bold text-gray-900 dark:text-gray-100">{{ __('Total not paid') }}:</dt>
+                                    <dd class="text-base font-bold text-indigo-600 dark:text-indigo-400">€ {{ number_format($amountDue, 2, ',', '.') }}</dd>
+                                </div>
+                                @else
+                                
                                 <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                                     <dt class="text-base font-bold text-gray-900 dark:text-gray-100">{{ __('Total not paid') }}:</dt>
                                     <dd class="text-base font-bold text-indigo-600 dark:text-indigo-400">€ {{ number_format($invoice->total, 2, ',', '.') }}</dd>
+                                </div>
+
+                                @endif
+                            </dl>
+                        </div>
+                    </div> --}}
+                    {{-- 5. Totali Fattura --}}
+                    <div class="mt-8 flex justify-end">
+                        <div class="w-full max-w-sm">
+                            <dl class="space-y-4">
+                                {{-- Imponibile --}}
+                                <div class="flex justify-between">
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">Imponibile:</dt>
+                                    <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->subtotal, 2, ',', '.') }}</dd>
+                                </div>
+                                {{-- IVA --}}
+                                <div class="flex justify-between">
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">Totale IVA:</dt>
+                                    <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->vat_amount, 2, ',', '.') }}</dd>
+                                </div>
+                                {{-- Totale Fattura (sempre visibile) --}}
+                                <div class="flex justify-between">
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">Totale Fattura:</dt>
+                                    <dd class="text-sm font-medium text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->total, 2, ',', '.') }}</dd>
+                                </div>
+
+                                {{-- Mostra i pagamenti solo se ce ne sono --}}
+                                @if ($amountPaid > 0)
+                                <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <dt class="text-sm text-gray-600 dark:text-gray-400">Importo Pagato:</dt>
+                                    <dd class="text-sm font-medium text-green-600 dark:text-green-400">
+                                        - € {{ number_format($amountPaid, 2, ',', '.') }}
+                                    </dd>
+                                </div>
+                                @endif
+
+                                {{-- Riga finale con l'importo da pagare --}}
+                                <div class="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <dt class="text-base font-bold text-gray-900 dark:text-gray-100">Importo da Pagare:</dt>
+                                    <dd class="text-base font-bold text-indigo-600 dark:text-indigo-400">
+                                        € {{ number_format($amountDue, 2, ',', '.') }}
+                                    </dd>
                                 </div>
                             </dl>
                         </div>

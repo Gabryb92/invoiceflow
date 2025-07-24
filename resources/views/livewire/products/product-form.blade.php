@@ -15,7 +15,7 @@
                     <x-alert />
 
                     <form wire:submit.prevent="save" class="grid sm:grid-cols-2">
-                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Product Dates')}}</h2>
+                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Product Data')}}</h2>
                         
 
                         <div class="grid gap-4 sm:grid-cols-4 sm:gap-4 sm:col-span-2">

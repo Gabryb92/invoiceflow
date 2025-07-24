@@ -33,19 +33,19 @@
                 <form wire:submit.prevent="savePayment" class="mt-6 space-y-6">
                     <div>
                         <label for="amount_paid" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Importo Pagato (€)</label>
-                        <input type="number" step="0.01" id="amount_paid" wire:model="amount_paid" class="form-input-style w-full" placeholder="0.00">
+                        <input type="text" inputmode="decimal" id="amount_paid" wire:model="amount_paid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 no-spinner" placeholder="0.00">
                         @error('amount_paid') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label for="payment_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Data Pagamento</label>
-                        <input type="date" id="payment_date" wire:model="payment_date" class="form-input-style w-full">
+                        <input type="date" id="payment_date" wire:model="payment_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         @error('payment_date') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label for="payment_method" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Metodo</label>
-                        <select id="payment_method" wire:model="payment_method" class="form-input-style w-full">
+                        <select id="payment_method" wire:model="payment_method" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="">Seleziona un metodo</option>
                             <option value="Bonifico">Bonifico</option>
                             <option value="Carta di Credito">Carta di Credito</option>
@@ -57,7 +57,7 @@
 
                     <div>
                         <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Note</label>
-                        <textarea id="notes" wire:model="notes" rows="3" class="form-input-style w-full" placeholder="Dettagli aggiuntivi..."></textarea>
+                        <textarea id="notes" wire:model="notes" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Dettagli aggiuntivi..."></textarea>
                         @error('notes') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                     </div>
 

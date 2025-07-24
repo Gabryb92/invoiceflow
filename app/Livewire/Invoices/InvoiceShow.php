@@ -10,8 +10,18 @@ class InvoiceShow extends Component
 {
     public Invoice $invoice;
 
+    public float $amountDue = 0;
+
+    public float $amountPaid = 0;
+
+
+
     #[On('paymentSaved')]
-    public function refreshInvoice(){
+    public function refreshInvoice(string $message){
+        //Messaggio dal form Payment
+
+        session()->flash('message', $message);
+
         $this->invoice->refresh();
     }
     public function mount(Invoice $invoice){
@@ -21,6 +31,8 @@ class InvoiceShow extends Component
     }
     public function render()
     {
+        $this->amountPaid = $this->invoice->payments()->sum('amount_paid');
+        $this->amountDue = $this->invoice->total - $this->amountPaid;
         return view('livewire.invoices.invoice-show')->layout('layouts.app');
     }
 }

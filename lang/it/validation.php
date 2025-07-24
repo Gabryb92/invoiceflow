@@ -227,6 +227,11 @@ return [
     "description" => "Descrizione",
     "default_vat_rate" => "IVA",
     "default_unit_price" => "Prezzo no IVA",
+
+    // --- Campi Pagamento ---
+    "amount_paid" => "Importo Pagato",
+    "payment_date" => "Data Pagamento",
+    "payment_method" => "Metodo"
     ],
 
 ];

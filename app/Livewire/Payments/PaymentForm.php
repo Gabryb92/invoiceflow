@@ -44,6 +44,8 @@ class PaymentForm extends Component
     }
 
     public function savePayment(){
+         $this->amount_paid = str_replace(',', '.', $this->amount_paid);
+
         $dataValidated = $this->validate();
 
         try{
@@ -67,11 +69,13 @@ class PaymentForm extends Component
                 
             });
 
+            $message = "Payment correctly confirmed";
+
             //Inviare l'evento alla pagina genitore per dirle di aggiornarsi:
-            $this->dispatch('paymentSaved');
+            $this->dispatch('paymentSaved',message:$message);
 
             //Mostrare il messaggio:
-            session()->flash('message', "Payment correctly confirmed");
+            //session()->flash('message', "Payment correctly confirmed");
 
             //Chiudiamo la modale
             $this->closeModal();
