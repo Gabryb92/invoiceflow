@@ -4,7 +4,6 @@ namespace App\Livewire\Clients;
 
 use App\Models\Client;
 use Livewire\Component;
-use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 
 class ClientList extends Component

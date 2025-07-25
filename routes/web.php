@@ -12,6 +12,7 @@ use App\Livewire\Products\ProductList;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoicePdfController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Invoices\InvoiceShow;
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
@@ -19,9 +20,11 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 
 
 Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+
+    Route::get('/',Dashboard::class)->name('dashboard');
 
     //Clienti
     Route::get('/clienti',ClientList::class)->name('clienti.index');
