@@ -114,7 +114,7 @@
                                             <td class="px-3 py-4 text-sm text-center text-gray-500 dark:text-gray-400">{{ $item->quantity }}</td>
                                             <td class="px-3 py-4 text-sm text-right text-gray-500 dark:text-gray-400">€ {{ number_format($item->unit_price, 2, ',', '.') }}</td>
                                             <td class="px-3 py-4 text-sm text-right text-gray-500 dark:text-gray-400">{{ number_format($item->vat_rate, 2, ',', '.') }}%</td>
-                                            <td class="py-4 pl-3 pr-4 text-sm text-right font-medium text-gray-800 dark:text-gray-200 sm:pr-0">€ {{ number_format($item->quantity * $item->unit_price, 2, ',', '.') }}</td>
+                                            <td class="py-4 pl-3 pr-4 text-sm text-right font-medium text-gray-800 dark:text-gray-200 sm:pr-0">€ {{ number_format(($item->quantity * $item->unit_price), 2, ',', '.') }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -14,6 +14,8 @@ class ProductList extends Component
     //Variabile per mostrare i prodotti archiviati/disponibili
     public $showArchived = false;
 
+    public $search = "";
+
 
     public function archiveProduct($product_id){
         $product = Product::withTrashed()->findOrFail($product_id);
@@ -37,11 +39,25 @@ class ProductList extends Component
 
     public function render()
     {
+        $query = Product::query();
+
         $showArchived = (bool) $this->showArchived;
 
-        $showArchived ?
-            $products = Product::onlyTrashed()->orderBy('name')->paginate(10) :
-            $products = Product::orderBy('name')->paginate(10);
+        if($showArchived){
+            $query->onlyTrashed();
+        }
+
+        $query->when($this->search, function ($q) {
+
+            $q->where(function ($subQuery) {
+                $searchItem = '%' . $this->search . '%';
+                $subQuery->where('name', 'like', $searchItem);
+
+            });
+        });
+
+
+        $products = $query->latest()->paginate(10);
             
 
         return view('livewire.products.product-list',compact('products'))->layout('layouts.app');
