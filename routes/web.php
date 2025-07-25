@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\TestPaginator;
+
 use App\Livewire\Clients\ClientForm;
 use App\Livewire\Clients\ClientList;
 use App\Livewire\Clients\ClientShow;
@@ -20,9 +20,7 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 
 
 Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
-    // Route::get('/', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
+    
 
     Route::get('/',Dashboard::class)->name('dashboard');
 
@@ -54,8 +52,6 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     Route::get('/prodotti/{products}/edit', ProductForm::class)->name('prodotti.edit');
 });
     
-
- 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

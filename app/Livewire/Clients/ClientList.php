@@ -29,6 +29,33 @@ class ClientList extends Component
         session()->flash('message', 'Client permanently deleted successfully.');
     }
 
+    public function anonymizeClient(int $clientId){
+        $client = Client::withTrashed()->findOrFail($clientId);
+        // I tuoi dati di anonimizzazione sono perfetti
+        $client->update([
+            "first_name"   => "[Dato Rimosso]",
+            "last_name"    => "",
+            "company_name" => "[Cliente Anonimizzato]",
+            "email"        => $client->id . '_' . time() . '@deleted.user', // Reso ancora più unico
+            "phone"        => "",
+            "address"      => "",
+            "city"         => "",
+            "zip_code"     => "",
+            "province"     => "",
+            "country"      => "",
+            "vat_number"   => null, // Meglio null per rispettare i vincoli UNIQUE
+            "fiscal_code"  => null, // Meglio null per rispettare i vincoli UNIQUE
+            "notes"        => "Dati cliente rimossi su richiesta.",
+        ]);
+
+        if(!$client->trashed()){
+            $client->delete();
+        }
+
+        session()->flash('message', 'Client permanently deleted successfully.');
+
+    }
+
     public function restoreClient($clientId){
         $client = Client::withTrashed()->findOrFail($clientId);
         $client->restore();

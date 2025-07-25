@@ -79,28 +79,34 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $client->fiscal_code }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap flex gap-2">
-                        <a href="{{ route('clienti.edit',compact('client')) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Edit</a>
-                        @if($showArchived)
-                            <x-restore-button 
-                                wire:click="restoreClient({{ $client->id }})"
-                                wire:confirm="{{ __('Are you sure you want to restore this client?') }}">
-                                {{ __('Restore') }}
-                            </x-restore-button>
+                    @if ($client->company_name !== '[Cliente Anonimizzato]' && $client->first_name !== '[Dato Rimosso]')
+                        <td class="px-6 py-4 whitespace-nowrap flex gap-2">
+                            <a href="{{ route('clienti.edit',compact('client')) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Edit</a>
+                            @if($showArchived)
+                                <x-restore-button 
+                                    wire:click="restoreClient({{ $client->id }})"
+                                    wire:confirm="{{ __('Are you sure you want to restore this client?') }}">
+                                    {{ __('Restore') }}
+                                </x-restore-button>
+                                <x-danger-button 
+                                    wire:click="anonymizeClient({{ $client->id }})"
+                                    wire:confirm="{{ __('Are you sure you want to permanently delete this client?') }}">
+                                    {{ __('Delete') }}
+                                </x-danger-button>
+                                
+                            @else
                             <x-danger-button 
-                                wire:click="forceDelete({{ $client->id }})"
-                                wire:confirm="{{ __('Are you sure you want to permanently delete this client?') }}">
-                                {{ __('Delete') }}
+                                wire:click="archiveClient({{ $client->id }})"
+                                wire:confirm="{{ __('Are you sure you want to archive this client?') }}">
+                                {{ __('Archive') }}
                             </x-danger-button>
-                            
-                        @else
-                        <x-danger-button 
-                            wire:click="archiveClient({{ $client->id }})"
-                            wire:confirm="{{ __('Are you sure you want to archive this client?') }}">
-                            {{ __('Archive') }}
-                        </x-danger-button>
-                        @endif
-                    </td>
+                            @endif
+                        </td>
+                    @else
+                        <td class="px-6 py-4 whitespace-nowrap flex gap-2">
+                            <span class="text-gray-500">--</span>
+                        </td>
+                    @endif
                 </tr>
             @empty
                 <tr>

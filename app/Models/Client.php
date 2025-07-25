@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Policies\ClientPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+#[UsePolicy(ClientPolicy::class)]
 class Client extends Model
 {
     use HasFactory,SoftDeletes;
