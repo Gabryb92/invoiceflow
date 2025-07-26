@@ -202,7 +202,7 @@ class InvoiceForm extends Component
                 ])->createInvoiceItems($this->invoiceItems);
             });
 
-                session()->flash('message', 'Fattura salvata con successo!');
+                session()->flash('message', 'Invoice saved correctly');
                 $this->reset();
                 // Riporta il componente allo stato di "creazione" pulito
                 $this->invoice = new Invoice();
@@ -213,7 +213,7 @@ class InvoiceForm extends Component
 
         } catch (\Exception $e) {
             // Gestione dell'errore, ad esempio log o messaggio di errore
-            session()->flash('error', 'Errore durante il salvataggio della fattura:');
+            session()->flash('error', "An error occurred while saving, please try again later.");
             Log::error('Errore durante il salvataggio della fattura', [
                 'message' => $e->getMessage(),
                 'invoice_data' => $this->all(),

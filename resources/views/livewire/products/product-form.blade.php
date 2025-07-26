@@ -1,4 +1,13 @@
 <div>
+    @if($product->exists)
+    <x-slot name="header">
+        <div class="flex ml-auto justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Edit Product') }}
+            </h2>
+        </div>
+    </x-slot>
+    @else
     <x-slot name="header">
         <div class="flex ml-auto justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -6,6 +15,8 @@
             </h2>
         </div>
     </x-slot>
+    @endif
+
 
     <div class="p-12">
         <section class="w-full mx-auto sm:px-6 lg:px-8">

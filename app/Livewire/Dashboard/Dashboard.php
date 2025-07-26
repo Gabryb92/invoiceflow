@@ -90,6 +90,7 @@ class Dashboard extends Component
         $latestClients = $this->get_recently_added_clients();
         $chart_data = $this->get_monthly_revenue();
 
+        $chart_data['dataset_label'] = __('Monthly Revenue'); 
         $this->dispatch('updateChart', data: $chart_data);
 
         return view('livewire.dashboard.dashboard', compact(

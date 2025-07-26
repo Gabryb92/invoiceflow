@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Clients;
 
+use Exception;
 use App\Models\Client;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 
 class ClientList extends Component
 {
@@ -18,48 +20,73 @@ class ClientList extends Component
 
 
     public function archiveClient($clientId){
-        $client = Client::withTrashed()->findOrFail($clientId);
-        $client->delete();
-        session()->flash('message', 'Client archived successfully.');
+        try{
+
+            $client = Client::findOrFail($clientId);
+            $client->delete();
+            session()->flash('message', 'Client archived successfully.');
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred while archiving, please try again later.");
+            Log::error($e->getMessage());
+        }
     }
 
     public function forceDelete($clientId){
-        $client = Client::withTrashed()->findOrFail($clientId);
-        $client->forceDelete();
-        session()->flash('message', 'Client permanently deleted successfully.');
+        try{
+
+            $client = Client::withTrashed()->findOrFail($clientId);
+            $client->forceDelete();
+            session()->flash('message', 'Client permanently deleted successfully.');
+        } catch (Exception $e){
+            session()->flash('error', "An error occurred during forced deletion. Please try again later.");
+            Log::error($e->getMessage());
+        }
     }
 
     public function anonymizeClient(int $clientId){
-        $client = Client::withTrashed()->findOrFail($clientId);
-        // I tuoi dati di anonimizzazione sono perfetti
-        $client->update([
-            "first_name"   => "[Dato Rimosso]",
-            "last_name"    => "",
-            "company_name" => "[Cliente Anonimizzato]",
-            "email"        => $client->id . '_' . time() . '@deleted.user', // Reso ancora più unico
-            "phone"        => "",
-            "address"      => "",
-            "city"         => "",
-            "zip_code"     => "",
-            "province"     => "",
-            "country"      => "",
-            "vat_number"   => null, // Meglio null per rispettare i vincoli UNIQUE
-            "fiscal_code"  => null, // Meglio null per rispettare i vincoli UNIQUE
-            "notes"        => "Dati cliente rimossi su richiesta.",
-        ]);
+        try{
 
-        if(!$client->trashed()){
-            $client->delete();
+            $client = Client::withTrashed()->findOrFail($clientId);
+            // I tuoi dati di anonimizzazione sono perfetti
+            $client->update([
+                "first_name"   => "[Dato Rimosso]",
+                "last_name"    => "",
+                "company_name" => "[Cliente Anonimizzato]",
+                "email"        => $client->id . '_' . time() . '@deleted.user', // Reso ancora più unico
+                "phone"        => "",
+                "address"      => "",
+                "city"         => "",
+                "zip_code"     => "",
+                "province"     => "",
+                "country"      => "",
+                "vat_number"   => null, // Meglio null per rispettare i vincoli UNIQUE
+                "fiscal_code"  => null, // Meglio null per rispettare i vincoli UNIQUE
+                "notes"        => "Dati cliente rimossi su richiesta.",
+            ]);
+
+            if(!$client->trashed()){
+                $client->delete();
+            }
+
+            session()->flash('message', 'Client permanently deleted successfully.');
+        } catch(Exception $e) {
+            session()->flash('error', "An error occurred during forced deletion. Please try again later.");
+            Log::error($e->getMessage());
         }
 
-        session()->flash('message', 'Client permanently deleted successfully.');
 
     }
 
     public function restoreClient($clientId){
-        $client = Client::withTrashed()->findOrFail($clientId);
-        $client->restore();
-        session()->flash('message', 'Client restored successfully.');
+        try{
+
+            $client = Client::withTrashed()->findOrFail($clientId);
+            $client->restore();
+            session()->flash('message', 'Client restored successfully.');
+        } catch(Exception $e) {
+            session()->flash('error', "An error occurred during the restore. Please try again later.");
+            Log::error($e->getMessage());
+        }
     }
     
     public function render()

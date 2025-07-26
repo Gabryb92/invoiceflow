@@ -49,7 +49,7 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     //Prodotti
     Route::get('/prodotti', ProductList::class)->name('prodotti.index');
     Route::get('/prodotti/create', ProductForm::class)->name('prodotti.create');
-    Route::get('/prodotti/{products}/edit', ProductForm::class)->name('prodotti.edit');
+    Route::get('/prodotti/{product}/edit', ProductForm::class)->name('prodotti.edit');
 });
     
 

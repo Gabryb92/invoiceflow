@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Products;
 
+use Exception;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 
 class ProductList extends Component
 {
@@ -17,24 +19,42 @@ class ProductList extends Component
     public $search = "";
 
 
-    public function archiveProduct($product_id){
-        $product = Product::withTrashed()->findOrFail($product_id);
-        $product->delete();
-        session()->flash('message', 'Product archived successfully.');
+    public function archiveProduct(int $product_id){
+        try{
+
+            $product = Product::findOrFail($product_id);
+            $product->delete();
+            session()->flash('message', 'Product archived successfully.');
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred during the archiving. Please try again later.");
+            Log::error($e->getMessage());
+        }
     }
 
-    public function forceDelete($product_id){
-        $product = Product::withTrashed()->findOrFail($product_id);
+    public function forceDelete(int $product_id){
+        try{
 
-        $product->forceDelete();
-        session()->flash('message', 'Product permanently deleted successfully.');
+            $product = Product::withTrashed()->findOrFail($product_id);
+    
+            $product->forceDelete();
+            session()->flash('message', 'Product permanently deleted successfully.');
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred during the deletion. Please try again later.");
+            Log::error($e->getMessage());
+        }
     }
 
-    public function restoreProduct($product_id){
-        $product = Product::withTrashed()->findOrFail($product_id);
+    public function restoreProduct(int $product_id){
+        try{
 
-        $product->restore();
-        session()->flash('message', 'Product restored successfully.');
+            $product = Product::withTrashed()->findOrFail($product_id);
+    
+            $product->restore();
+            session()->flash('message', 'Product restored successfully.');
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred during the restore. Please try again later.");
+            Log::error($e->getMessage());
+        }
     }
 
     public function render()

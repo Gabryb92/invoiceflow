@@ -81,7 +81,7 @@ class PaymentForm extends Component
             $this->closeModal();
             
         } catch (Exception $e) {
-            Log::error('Errore durante il salvataggio del pagamento della fattura', [
+            Log::error('An error occurred while the confirmation of the payment, please try again later.', [
                 'message' => $e->getMessage(),
                 'payment_data' => $this->all(),
             ]);

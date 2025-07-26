@@ -10,10 +10,10 @@
     
 
 
-    <div class="flex justify-between ml-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4 py-6 px-4 sm:px-6 lg:px-8">
 
         <div class="w-full max-w-md">
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -26,8 +26,8 @@
         
         <div class="flex items-center flex-row space-x-4">    
             <select wire:model.live="showArchived" class="block  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                <option value="0">Clienti Attivi</option>
-                <option value="1">Clienti Archiviati</option>
+                <option value="0">{{__('Clients active')}}</option>
+                <option value="1">{{__('Clients archived')}}</option>
             </select>
             
             <a href="{{ route('clienti.create') }}" class="flex flex-row items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
@@ -42,7 +42,7 @@
     
 
 
-    <div class="border border-gray-700 rounded-lg overflow-hidden">
+    <div class="border border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden">
         
         <table class="min-w-full divide-y divide-gray-700 text-gray-200">
         <thead class="font-bold bg-gray-800">
@@ -53,10 +53,10 @@
                 <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                     {{ __('Email') }}
                 </th>
-                <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider hidden sm:table-cell">
                     {{ __('Phone') }}
                 </th>
-                <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider hidden sm:table-cell">
                     {{ __('Fiscal Code') }}
                 </th>
                 <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
@@ -73,15 +73,15 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $client->email }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                         {{ $client->phone }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                         {{ $client->fiscal_code }}
                     </td>
                     @if ($client->company_name !== '[Cliente Anonimizzato]' && $client->first_name !== '[Dato Rimosso]')
                         <td class="px-6 py-4 whitespace-nowrap flex gap-2">
-                            <a href="{{ route('clienti.edit',compact('client')) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Edit</a>
+                            <a href="{{ route('clienti.edit',compact('client')) }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">{{__('Edit')}}</a>
                             @if($showArchived)
                                 <x-restore-button 
                                     wire:click="restoreClient({{ $client->id }})"

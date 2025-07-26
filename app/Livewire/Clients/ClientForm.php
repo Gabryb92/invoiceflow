@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Clients;
 
+use Exception;
 use App\Models\Client;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
@@ -76,19 +77,25 @@ class ClientForm extends Component
         //dd($this->all());
         $validatedData = $this->validate();
 
-        if($this->client->exists){
-            //Se il cliente esiste, aggiorniamo i dati
-            $this->client->update($validatedData);
-            session()->flash('message', 'Client updated successfully.');
-        } else {
-            //Altrimenti, creiamo un nuovo cliente
-            Client::create($validatedData);
-            session()->flash('message', 'Client created successfully.');
+        try{
 
-            $this->reset();
+            if($this->client->exists){
+                //Se il cliente esiste, aggiorniamo i dati
+                $this->client->update($validatedData);
+                session()->flash('message', 'Client updated successfully.');
+            } else {
+                //Altrimenti, creiamo un nuovo cliente
+                Client::create($validatedData);
+                session()->flash('message', 'Client created successfully.');
+    
+                $this->reset();
+                
+            }
             
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred while saving, please try again later.");
+            Log::error($e->getMessage());
         }
-        
         
         
     }

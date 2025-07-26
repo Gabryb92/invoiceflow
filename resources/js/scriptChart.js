@@ -21,7 +21,7 @@ document.addEventListener("livewire:init", () => {
                 labels: event.data.labels, //Usiamo le etichette che riceviamo dal componente
                 datasets: [
                     {
-                        label: "Fatturato Mensile",
+                        label: event.data.dataset_label,
                         data: event.data.data, //dati ricevuti dall'evento
                         backgroundColor: "rgba(96, 228, 142, 0.5)", //Colore delle barre,
                         borderColor: "rgba(96, 228, 142, 1)", // Colore del bordo

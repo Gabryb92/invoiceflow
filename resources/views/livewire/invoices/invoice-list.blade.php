@@ -9,7 +9,7 @@
 
     
 
-    <div class="flex justify-between ml-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4 py-6 px-4 sm:px-6 lg:px-8">
 
         <div class="w-full max-w-md">
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -23,8 +23,8 @@
             </div>
         </div>
         
-        <div class="flex items-center flex-row space-x-4">    
-            <a href="{{ route('fatture.create') }}" class="flex flex-row items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
+        <div class="flex justify-end sm:items-center flex-row space-x-4">    
+            <a href="{{ route('fatture.create') }}" class="grow flex flex-row justify-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
                 {{ __('Add Invoice') }}
             </a>
         </div>
@@ -34,7 +34,7 @@
     <x-alert />
     
 
-    <div class="border border-gray-700 rounded-lg overflow-hidden m-2">
+    <div class="border border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden m-2">
         
         <table class="min-w-full divide-y divide-gray-700 text-gray-200">
         <thead class="font-bold bg-gray-800">

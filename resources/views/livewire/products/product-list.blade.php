@@ -7,11 +7,11 @@
         </div>
     </x-slot>
 
-    <div class="flex justify-between ml-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center gap-4 py-6 px-4 sm:px-6 lg:px-8">
         
 
         <div class="w-full max-w-md">
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -25,8 +25,8 @@
         <div class="flex items-center flex-row space-x-4"> 
             
             <select wire:model.live="showArchived" class="block  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                <option value="0">Prodotti Attivi</option>
-                <option value="1">Prodotti Archiviati</option>
+                <option value="0">{{__('Products active')}}</option>
+                <option value="1">{{__('Products archived')}}</option>
             </select>
             
             
@@ -42,7 +42,7 @@
     
 
 
-    <div class="border border-gray-700 rounded-lg overflow-hidden m-2">
+    <div class="border border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden m-2">
         
         <table class="min-w-full divide-y divide-gray-700 text-gray-200">
         <thead class="font-bold bg-gray-800">
@@ -75,7 +75,7 @@
                         {{ number_format($product->default_vat_rate,2, ',','.') }} &percnt;
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap flex gap-2 justify-center">
-                        <a href="#" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">{{__('Edit')}}</a>
+                        <a href="{{route('prodotti.edit',$product)}}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">{{__('Edit')}}</a>
                         @if($showArchived)
                             <x-restore-button 
                                 wire:click="restoreProduct({{ $product->id }})"

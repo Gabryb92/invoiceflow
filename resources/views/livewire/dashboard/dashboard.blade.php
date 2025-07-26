@@ -207,10 +207,10 @@
         <div class=" mx-auto sm:px-6 lg:px-8">
             <header class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                    Dashboard
+                    {{ __('Dashboard') }}
                 </h1>
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Una visione d'insieme della tua attività.
+                    {{ __("A snapshot of your business activity.") }}
                 </p>
             </header>
 
@@ -218,28 +218,28 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Fatturato Annuale</p>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">{{__("Annual Revenue")}}</p>
                         <p class="mt-1 text-3xl font-semibold tracking-tight">€ {{ number_format($totalRevenue, 2, ',', '.') }}</p>
                     </div>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Importo da Incassare</p>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">{{__("Outstanding Amount")}}</p>
                         <p class="mt-1 text-3xl font-semibold tracking-tight">€ {{ number_format($outstandingAmount, 2, ',', '.') }}</p>
                     </div>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Clienti Attivi</p>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">{{__("Active Clients")}}</p>
                         <p class="mt-1 text-3xl font-semibold tracking-tight">{{ $activeClientsCount }}</p>
                     </div>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Fatture in Scadenza</p>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">{{__("Invoices Due")}}</p>
                         <p class="mt-1 text-3xl font-semibold tracking-tight">{{ $dueInvoicesCount }}</p>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
-                            Ultime 5 Fatture
+                            {{ __("Last 5 Invoices") }}
                         </h3>
                         <ul role="list" class="mt-4 divide-y divide-gray-200 dark:divide-gray-700">
                             @forelse ($latestInvoices as $invoice)
@@ -276,7 +276,7 @@
                                     </div>
                                 </li>
                             @empty
-                                <li class="py-3 text-sm text-gray-500 dark:text-gray-400">Nessuna fattura trovata.</li>
+                                <li class="py-3 text-sm text-gray-500 dark:text-gray-400">{{__("No Invoices Found")}}</li>
                             @endforelse
                         </ul>
                     </div>
@@ -285,7 +285,7 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
-                            Ultimi 5 Clienti Aggiunti
+                            {{ __("Last 5 Added Clients") }}
                         </h3>
                         <ul role="list" class="mt-4 divide-y divide-gray-200 dark:divide-gray-700">
                              @forelse ($latestClients as $client)
@@ -297,11 +297,11 @@
                                         <a href="{{ route('clienti.show', $client) }}" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 truncate hover:underline">
                                             {{ $client->company_name ?? $client->first_name . ' ' . $client->last_name }}
                                         </a>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400 truncate">Aggiunto il {{ $client->created_at->format('d/m/Y') }}</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ __("Client since") }} {{ $client->created_at->format('d/m/Y') }}</p>
                                     </div>
                                 </li>
                             @empty
-                                <li class="py-3 text-sm text-gray-500 dark:text-gray-400">Nessun cliente aggiunto di recente.</li>
+                                <li class="py-3 text-sm text-gray-500 dark:text-gray-400">{{__("No Recently Added Clients")}}</li>
                             @endforelse
                         </ul>
                     </div>
@@ -312,7 +312,7 @@
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
-                        Andamento Fatturato (Ultimi 6 Mesi)
+                        {{ __("Revenue Trend (Last 6 Months)") }}
                     </h3>
                     <div class="mt-4 h-80 bg-gray-50 dark:bg-gray-700/50 rounded-lg flex items-center justify-center">
                         <canvas id=revenueChart>

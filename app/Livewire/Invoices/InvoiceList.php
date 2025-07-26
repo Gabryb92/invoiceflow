@@ -2,22 +2,30 @@
 
 namespace App\Livewire\Invoices;
 
+use Exception;
 use App\Models\Invoice;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceList extends Component
 {
+    use WithPagination;
 
     public $search = "";
-    use WithPagination;
     protected $paginationTheme = 'tailwind';
 
 
     public function deleteInvoice(int $invoice_id){
-        $invoice = Invoice::findOrFail($invoice_id);
-        $invoice->delete();
-        session()->flash('message', 'Invoice permanently deleted successfully.');
+        try{
+
+            $invoice = Invoice::findOrFail($invoice_id);
+            $invoice->delete();
+            session()->flash('message', 'Invoice permanently deleted successfully.');
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred during the deletion. Please try again later.");
+            Log::error($e->getMessage());
+        }
     }
 
     public function render()

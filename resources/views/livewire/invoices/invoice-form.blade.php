@@ -1,23 +1,32 @@
 <div>
-    <div>
+
+    @if($invoice->exists)
         <x-slot name="header">
             <div class="flex ml-auto justify-between">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Invoice Information') }}
+                    {{ __('Edit Invoice') }}
                 </h2>
             </div>
         </x-slot>
-    </div>
+    @else
+        <x-slot name="header">
+            <div class="flex ml-auto justify-between">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Add Invoice') }}
+                </h2>
+            </div>
+        </x-slot>
+    @endif
 
 
-    <div class="p-12">
+    <div class="p-4 sm:p-6 lg:p-12">
         <section class="w-full mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 ">
                     <x-alert />
 
-                    <form wire:submit.prevent="save" class="grid sm:grid-cols-2">
+                    <form wire:submit.prevent="save" class="grid grid-cols-1 sm:grid-cols-2">
                         <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Invoice Dates')}}</h2>
                         
 
@@ -91,8 +100,8 @@
                             </div>
                         @enderror
 
-                        <div class="sm:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                            <div class="overflow-x-auto">
+                        <div class="sm:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden">
+                            <div class="overflow-x-auto sm:overflow-hidden">
                                 <table class="min-w-full divide-y divide-gray-700 text-gray-200">
                                     <thead class="font-bold bg-gray-800">
                                         <tr class="text-gray-100">
@@ -121,37 +130,37 @@
                                         @forelse ($invoiceItems as $index => $item)
                                             <tr wire:key="item-{{ $index }}">
                                                 {{-- Campo Descrizione --}}
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="text" wire:model.live="invoiceItems.{{ $index }}.description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                                                <td class="px-2 py-4 whitespace-nowrap">
+                                                    <input type="text" wire:model.live="invoiceItems.{{ $index }}.description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                                     @error('invoiceItems.' . $index . '.description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                 </td>
                                                 {{-- Campo Quantità --}}
 
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="number" step="0.01" wire:model.live="invoiceItems.{{ $index }}.quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                                                <td class="px-1 py-4 whitespace-nowrap min-w-[80px]">
+                                                    <input type="number" step="0.01" wire:model.live="invoiceItems.{{ $index }}.quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                                     @error('invoiceItems.' . $index . '.quantity') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                 </td>
 
                                                 {{-- Campo Prezzo Unitario --}}
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="number" step="0.01" wire:model.live="invoiceItems.{{ $index }}.unit_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                                                <td class="px-1 py-4 whitespace-nowrap min-w-[100px]">
+                                                    <input type="number" step="0.01" wire:model.live="invoiceItems.{{ $index }}.unit_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                                     @error('invoiceItems.' . $index . '.unit_price') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                                                 </td>
                                                 {{-- Campo Iva --}}
-                                                <td class="px-6 py-4 whitespace-nowrap">
-                                                    <input type="number" step="0.01" wire:model.live="invoiceItems.{{ $index }}.vat_rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                                                <td class="px-1 py-4 whitespace-nowrap min-w-[80px]">
+                                                    <input type="number" wire:model.live="invoiceItems.{{ $index }}.vat_rate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                                     @error('invoiceItems.' . $index . '.vat') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                 </td>
                                                 {{-- Subtotale di riga  --}}
 
-                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                <td class="text-center px-1 py-4 whitespace-nowrap min-w-[100px]">
                                                     {{ number_format(($item['quantity'] ?? 0)*($item['unit_price'] ?? 0),2) }}
                                                 </td>
 
                                                 {{-- Pulsante rimuovi --}}
 
-                                                <td>
+                                                <td class="px-1 py-4 whitespace-nowrap min-w-[70px]">
                                                     <x-danger-button wire:click.prevent="removeInvoiceItem({{$index}})">{{__('Remove')}}</x-danger-button>
                                                 </td>
 
@@ -174,7 +183,7 @@
                             </h3>
 
                             {{-- <div class="flex flex-col gap-4"> --}}
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
                             {{-- Loop through products --}}
                             @foreach ($products as $product)
@@ -183,7 +192,7 @@
                                     
                                     {{-- Questo pulsante chiama il metodo che abbiamo già creato --}}
                                     <button type="button" wire:click="addInvoiceItem({{ $product->id }})" class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded hover:bg-blue-600">
-                                        + Aggiungi
+                                        &#43; {{ __("Add") }}
                                     </button>
                                 </div>
                             @endforeach
@@ -200,7 +209,7 @@
                                 <div class="sm:col-span-2 flex justify-between items-center">
                                     <span class=" text-gray-600 dark:text-gray-400">Imponibile (Subtotale):</span>
                                     <span class="font-semibold text-gray-900 dark:text-white">
-                                        € {{ number_format($this->calculatedTotals['subtotal'], 2, ',', '.') }}
+                                        &euro; {{ number_format($this->calculatedTotals['subtotal'], 2, ',', '.') }}
                                     </span>
                                 </div>
 
@@ -208,7 +217,7 @@
                                 <div class="sm:col-span-2 flex justify-between items-center">
                                     <span class="text-gray-600 dark:text-gray-400">Totale IVA:</span>
                                     <span class="font-semibold text-gray-900 dark:text-white">
-                                        € {{ number_format($this->calculatedTotals['vat_amount'], 2, ',', '.') }}
+                                        &euro; {{ number_format($this->calculatedTotals['vat_amount'], 2, ',', '.') }}
                                     </span>
                                 </div>
 
@@ -218,7 +227,7 @@
                                 <div class="sm:col-span-1 flex justify-between items-center text-xl border-t border-gray-300 dark:border-gray-600 mt-2 pt-2">
                                     <span class="font-bold text-gray-900 dark:text-white">TOTALE</span>
                                     <span class="font-bold text-gray-900 dark:text-white">
-                                        € {{ number_format($this->calculatedTotals['total'], 2, ',', '.') }}
+                                        &euro; {{ number_format($this->calculatedTotals['total'], 2, ',', '.') }}
                                     </span>
                                 </div>
 

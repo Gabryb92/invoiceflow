@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Products;
 
+use Exception;
 use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 
 class ProductForm extends Component
 {
@@ -42,14 +44,20 @@ class ProductForm extends Component
     public function save(){
         $validatedData = $this->validate();
 
-        if($this->product->exists){
-            $this->product->update($validatedData);
-            session()->flash('message', "Product updated successfully.");
-        } else {
-            Product::create($validatedData);
-            session()->flash('message', "Product created successfully.");
-            $this->reset();
-        } 
+        try{
+
+            if($this->product->exists){
+                $this->product->update($validatedData);
+                session()->flash('message', "Product updated successfully.");
+            } else {
+                Product::create($validatedData);
+                session()->flash('message', "Product created successfully.");
+                $this->reset();
+            } 
+        } catch (Exception $e) {
+            session()->flash('error', "An error occurred while saving, please try again later.");
+            Log::error($e->getMessage());
+        }
 
     }
 
