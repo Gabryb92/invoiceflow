@@ -1,30 +1,26 @@
 <div>
     @if($client->exists)
 
-    <div class="p-4 sm:p-6 lg:px-12">
-       
-            <header class="sm:px-6 lg:px-8 mb-8">
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                    {{ __('Edit Client') }}
-                </h1>
-            </header>
-        
-    </div>
+    <x-slot name="header" class="">
+        <div class="flex ml-auto justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Edit Client') }}
+            </h2>
+        </div>
+    </x-slot>
         
     @else
-        <div class="p-4 sm:p-6 lg:px-12">
-       
-            <header class="sm:px-6 lg:px-8 mb-8">
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                    {{ __('Add Client') }}
-                </h1>
-            </header>
-        
-    </div>
+        <x-slot name="header" class="">
+        <div class="flex ml-auto justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Add Client') }}
+            </h2>
+        </div>
+    </x-slot>
         
     @endif
     
-    <div class="px-12">
+    <div class="p-12">
         
         <section class="w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
