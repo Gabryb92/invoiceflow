@@ -61,6 +61,7 @@ class ClientList extends Component
                 "country"      => "",
                 "vat_number"   => null, // Meglio null per rispettare i vincoli UNIQUE
                 "fiscal_code"  => null, // Meglio null per rispettare i vincoli UNIQUE
+                "is_anonymized" => true,
                 "notes"        => "Dati cliente rimossi su richiesta.",
             ]);
 
@@ -92,6 +93,8 @@ class ClientList extends Component
     public function render()
     {
         $query = Client::query();
+
+        $query->where('is_anonymized', false);
         // Converti il valore a booleano in modo sicuro
         $isArchived = (bool) $this->showArchived;
         if($isArchived){

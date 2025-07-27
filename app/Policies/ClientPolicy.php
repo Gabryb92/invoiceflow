@@ -10,7 +10,7 @@ class ClientPolicy
 {
     private function isAnonymized(Client $client): bool
     {
-        return $client->company_name === '[Cliente Anonimizzato]' || $client->first_name === '[Dato Rimosso]';
+        return $client->is_anonymized === true;
     }
     /**
      * Determine whether the user can view any models.

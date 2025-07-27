@@ -27,6 +27,7 @@ class Client extends Model
             "country",
             "vat_number",
             "fiscal_code",
+            "is_anonymized",
             "notes"
         ];
 
