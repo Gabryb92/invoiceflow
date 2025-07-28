@@ -27,29 +27,14 @@
                     <x-alert />
 
                     <form wire:submit.prevent="save" class="grid grid-cols-1 sm:grid-cols-2">
-                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Invoice Dates')}}</h2>
+                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Invoice Dates')}}  {{$invoice->exists ? "- " . $this->invoice_number : ""}}</h2>
                         
 
                         <div class="grid gap-4 sm:grid-cols-4 sm:gap-4 sm:col-span-2">
                         
 
+                            
                             <div class="sm:col-span-2">
-                                <label for="invoice_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{__('Invoice Number')}}</label>
-                                <input type="text" wire:model="invoice_number" id="invoice_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
-                                @error('invoice_number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="sm:col-span-2">
-                                <label for="issue_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Issue Date') }}</label>
-                                <input type="date" wire:model="issue_date" id="issue_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
-                                @error('issue_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="sm:col-span-2">
-                                <label for="due_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Due Date') }}</label>
-                                <input type="date" wire:model="due_date" id="due_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
-                                @error('due_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            </div>
-                        
-                            <div class="w-full">
                                 <label for="client" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Cliente') }}</label>
                                 <select wire:model="client_id" id="client" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option selected="">{{ __('Select Client') }}</option>
@@ -61,12 +46,16 @@
                                 @error('client_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                             </div>
-                            
-                            <div class="w-full">
+                            <div class="sm:col-span-2">
+                                <label for="issue_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Issue Date') }}</label>
+                                <input type="date" wire:model="issue_date" id="issue_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
+                                @error('issue_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="sm:col-span-2">
                                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Status') }}</label>
                                 <select wire:model="status" id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option value="unpaid">{{__('Unpaid')}}</option>
-                                    <option value="partially_unpaid">{{__('Partially Paid')}}</option>
+                                    <option value="partially_paid">{{__('Partially Paid')}}</option>
                                     <option value="paid">{{__('Paid')}}</option>
                                     <option value="cancelled">{{__('Cancelled')}}</option>
                                     
@@ -74,6 +63,13 @@
                                 @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                             </div>
+                            <div class="sm:col-span-2">
+                                <label for="due_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Due Date') }}</label>
+                                <input type="date" wire:model="due_date" id="due_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
+                                @error('due_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            </div>
+                        
+                            
                                     
                             
 
@@ -131,7 +127,9 @@
                                             <tr wire:key="item-{{ $index }}">
                                                 {{-- Campo Descrizione --}}
                                                 <td class="px-2 py-4 whitespace-nowrap">
-                                                    <input type="text" wire:model.live="invoiceItems.{{ $index }}.description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                                                    <input type="text" wire:model.live="invoiceItems.{{ $index }}.description"
+                                                    @if(isset($item['type']) && in_array($item['type'], ['discount', 'shipping'])) disabled @endif 
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                                     @error('invoiceItems.' . $index . '.description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                 </td>
                                                 {{-- Campo Quantità --}}
@@ -155,7 +153,7 @@
                                                 {{-- Subtotale di riga  --}}
 
                                                 <td class="text-center px-1 py-4 whitespace-nowrap min-w-[100px]">
-                                                    {{ number_format(($item['quantity'] ?? 0)*($item['unit_price'] ?? 0),2) }}
+                                                    {{ number_format( (float)($item['quantity'] ?? 0) * (float)($item['unit_price'] ?? 0), 2, ',', '.') }}
                                                 </td>
 
                                                 {{-- Pulsante rimuovi --}}
@@ -182,7 +180,7 @@
                                 {{ __('Add Products') }}
                             </h3>
 
-                            {{-- <div class="flex flex-col gap-4"> --}}
+                            
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
                             {{-- Loop through products --}}
@@ -196,7 +194,28 @@
                                     </button>
                                 </div>
                             @endforeach
-                        </div>
+                                <div class="p-2 bg-gray-50 border border-gray-500 dark:bg-gray-800 rounded-lg flex items-center justify-between">
+                                        <span class="font-medium text-sm text-gray-800 dark:text-gray-200">{{__('Discount')}}</span>
+                                        
+                                        
+                                        <button type="button" wire:click.prevent="addDiscountItem" class="px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded hover:bg-purple-600">
+                                            &#43; {{ __("Add") }}
+                                        </button>
+
+                                        
+                                </div>
+
+                                <div class="p-2 bg-gray-50 border border-gray-500 dark:bg-gray-800 rounded-lg flex items-center justify-between">
+                                        <span class="font-medium text-sm text-gray-800 dark:text-gray-200">{{__('Shipping')}}</span>
+                                        
+                                        
+                                        <button type="button" wire:click.prevent="addShippingItem" class="px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded hover:bg-yellow-600">
+                                            &#43; {{ __("Add") }}
+                                        </button>
+
+                                        
+                                </div>
+                            </div>
 
                         </div>
                         
