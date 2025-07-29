@@ -13,8 +13,10 @@
 
         
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         @livewireStyles
+
+        <link rel="stylesheet" href="{{ asset('/build/assets/app.css') }}">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -37,5 +39,6 @@
         </div>
 
         @livewireScripts
+        <script src="{{ asset('/build/assets/app.js') }}" defer></script>
     </body>
 </html>
