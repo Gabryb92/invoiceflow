@@ -10,8 +10,6 @@ Il progetto è stato sviluppato seguendo le best practice moderne, con un'archit
 
 #### 🛠️ Costruito Con
 
-Le tecnologie principali usate in questo progetto sono:
-
 -   [Laravel](https://laravel.com/): Il framework PHP per il backend, che gestisce la logica, le rotte, il database e la sicurezza.
 
 -   [Livewire](https://laravel-livewire.com/): Per creare un'interfaccia dinamica e reattiva senza dover scrivere JavaScript complesso.
