@@ -118,7 +118,7 @@ Per eseguire il progetto in locale
 8.  Esegui le migrazioni:
 
     ```BASH
-    php artisan migrate --seed
+    php artisan migrate
     ```
 
     Il progetto prevede dei dati fake per i test, basta lanciare il seeder:
