@@ -79,7 +79,16 @@
                         {{ $invoice->due_date->format('d/m/Y') }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $invoice->status }}
+                        {{-- {{ $invoice->status }} --}}
+
+                        @if($invoice->status === 'paid')
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Pagata</span>
+                        @elseif($invoice->status === 'partially_paid')
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Parz. Pagata</span>
+                        @elseif($invoice->status === 'unpaid')
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">Non Pagata</span>
+                        @endif
+
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         &euro; {{ $invoice->total }}

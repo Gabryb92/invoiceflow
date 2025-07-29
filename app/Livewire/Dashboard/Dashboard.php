@@ -4,8 +4,8 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\Client;
 use App\Models\Invoice;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 
 class Dashboard extends Component
 {
@@ -38,45 +38,121 @@ class Dashboard extends Component
 
 
     public function get_monthly_revenue(){
+        // Calcolo dinamico: partendo dal mese corrente, andiamo indietro di 5 mesi
+        // Luglio 2025 -> indietro 5 mesi = Febbraio 2025
+        // Agosto 2025 -> indietro 5 mesi = Marzo 2025, ecc.
 
 
-        $revenueData = Invoice::query()->select([
-            DB::raw('sum(total) as total_amount'),
-            DB::raw('DATE_FORMAT(issue_date, "%Y-%m") as month_year')
-        ])
+        // 1. OTTENERE IL MESE CORRENTE
+        // now() = data di oggi (29 luglio 2025, 14:30:25)
+        // startOfMonth() = primo giorno del mese corrente (1 luglio 2025, 00:00:00)
+        $currentMonth = now()->startOfMonth(); // Es: 2025-07-01
+        //dd($currentMonth);
+
+
+        // 2. CALCOLARE IL MESE DI PARTENZA
+        // copy() = crea una COPIA della data (senza modificare l'originale)
+        // Perché copy()? Perché se non lo fai, modifichi $currentMonth!
+        // 
+        // SBAGLIATO: $startMonth = $currentMonth->subMonths(5); // Modifica $currentMonth!
+        // GIUSTO:   $startMonth = $currentMonth->copy()->subMonths(5); // Lascia $currentMonth intatto
+        $startMonth = $currentMonth->copy()->subMonths(5); // Es: 2025-02-01
+
+        //dd($currentMonth, $startMonth);
+        // Esempio pratico:
+        // $currentMonth = 2025-07-01 (luglio)
+        // $startMonth = 2025-02-01 (febbraio) perché luglio - 5 mesi = febbraio
+        
+        // Log::info('=== DEBUG MONTHLY REVENUE ===');
+        // Log::info('Current Month: ' . $currentMonth->format('Y-m-d'));
+        // Log::info('Start Month: ' . $startMonth->format('Y-m-d'));
+        
+        // 3. QUERY AL DATABASE
+        $revenueData = Invoice::query()
+            ->selectRaw('SUM(total) as total_amount, DATE_FORMAT(issue_date, "%Y-%m") as month_year')
             ->where('status', 'paid')
-            ->where('issue_date', '>=', now()->subMonths(6))
+            ->where('issue_date', '>=', $startMonth)
             ->groupBy('month_year')
             ->orderBy('month_year', 'asc')
-            ->get()
-            ->pluck('total_amount','month_year');
-        // $revenueData = ["2025-02" => 361.07]; 
-        $labels = []; // Conterrà le etichette, es: ['Feb', 'Mar', 'Apr', ...]
-        $data = []; // Conterrà i dati, es: [361.07, 0, 0, ...]
+            ->pluck('total_amount', 'month_year');
+            // Risultato: ["2025-02" => 361.07] (se hai quella fattura di febbraio)
+            //Log::info('Revenue Data from DB:', $revenueData->toArray());
+            //dd($currentMonth, $startMonth,$revenueData);
+            
 
-        //Ciclo for che va dagli ultimi 5 mesi a oggi (6 mesi in totale)
-        for ($i = 5; $i >= 0;$i--){
-            $month = now()->subMonths($i); // now=luglio --> now()-->subMonths(5) --> 7-5=2 -->Febbraio 2025
+        // 4. PREPARARE GLI ARRAY PER IL GRAFICO
+        $labels = []; // Conterrà: ['Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug']
+        $data = []; // Conterrà: [361.07, 0, 0, 0, 0, 0]
 
-            //Formattiamo il mese per l'etichetta del grafico (es. "Lug")
-            $labels[] = $month->translatedFormat('M'); // 2->Feb
+        // 5. CREARE UNA COLLECTION VUOTA
+        // collect() = crea una "Collection" (come un array potenziato di Laravel)
+        // È come un array normale ma con più funzioni utili (push, map, filter, ecc.)
+        $monthsToProcess = collect(); // Inizialmente vuoto: []
+        
 
-            //Formattiamo il mese per cercare nei nostri dati(es "2025-07)
-            $month_key = $month->format('Y-m'); // 2025-02
+        // 6. GENERARE I 6 MESI DA MOSTRARE
+        for ($i = 0; $i < 6; $i++) {
+            $month = $startMonth->copy()->addMonths($i);
+            // Partiamo dal mese di inizio (febbraio) e aggiungiamo mesi uno per volta
+            
+            // $startMonth->copy() = copia di febbraio 2025
+            // ->addMonths($i) = aggiungi $i mesi
+            
+            // Iterazione 0: febbraio + 0 mesi = febbraio 2025
+            // Iterazione 1: febbraio + 1 mese  = marzo 2025
+            // Iterazione 2: febbraio + 2 mesi = aprile 2025
+            // Iterazione 3: febbraio + 3 mesi = maggio 2025
+            // Iterazione 4: febbraio + 4 mesi = giugno 2025
+            // Iterazione 5: febbraio + 5 mesi = luglio 2025
 
-            //Riempiamo l'array data con la corrispondenza dei dati, se non c'è corrispondenza mettiamo 0
-            $data[] = $revenueData->get($month_key, 0); //Cerchiamo la chiave 2025-02 e se la troviamo aggiungiamo il valore a $data
 
-            /*
-            Quindi avremo
-            $labels = ['Feb'] e $data = [361,07]
-            Completando il ciclo avremo questo risultato finale
-            $labels = ['Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug'];
-            $data   = [361.07, 0, 0, 0, 0, 0];
-            */
+            // push() = aggiungi alla collection (come array_push per gli array)
+            $monthsToProcess->push($month);
+            //Log::info("Mese {$i}: " . $month->format('Y-m-d') . ' -> ' . $month->translatedFormat('M'));
         }
 
-        return ['labels'=>$labels, 'data'=>$data];
+        //dd($currentMonth, $startMonth,$revenueData,$monthsToProcess);
+        
+        // Ora $monthsToProcess contiene 6 oggetti Carbon (date):
+        // [febbraio2025, marzo2025, aprile2025, maggio2025, giugno2025, luglio2025]
+
+
+        // 7. ELABORARE OGNI MESE
+        foreach ($monthsToProcess as $month) {
+            // Per ogni mese nella collection...
+        
+            // translatedFormat('M') = nome del mese abbreviato in italiano
+            // febbraio -> 'Feb', marzo -> 'Mar', ecc.
+            $monthLabel = $month->translatedFormat('M');
+            
+             // format('Y-m') = formato anno-mese per cercare nel database
+            // febbraio 2025 -> '2025-02'
+            $monthKey = $month->format('Y-m');
+
+            // Cercare il valore nel database
+            // $revenueData->get('2025-02', 0) = cerca la chiave '2025-02'
+            // Se la trova, restituisce il valore (361.07)
+            // Se non la trova, restituisce 0 (valore di default)
+            $monthValue = floatval($revenueData->get($monthKey, 0));
+            
+            // Aggiungere ai nostri array per il grafico
+            $labels[] = $monthLabel; // ['Feb', 'Mar', ...]
+            $data[] = $monthValue; // [361.07, 0, ...]
+            
+            //Log::info("Processing -> Key: {$monthKey} -> Label: {$monthLabel} -> Value: {$monthValue}");
+        }
+        //dd($currentMonth, $startMonth,$revenueData,$monthsToProcess,$labels,$data);
+
+
+
+        //Log::info('Final Labels:', $labels);
+        //Log::info('Final Data:', $data);
+
+        // 8. RISULTATO FINALE
+        return [
+            'labels' => $labels, // ['Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug']
+            'data' => $data // [361.07, 0, 0, 0, 0, 0]
+        ];
     }
 
     public function render()
