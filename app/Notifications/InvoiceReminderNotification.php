@@ -41,7 +41,7 @@ class InvoiceReminderNotification extends Notification
         $dueDate = $this->invoice->due_date->format('d/m/Y');
         $url = route('fatture.show',$this->invoice);
         return (new MailMessage)
-            ->subject('Promemorio Scadenza: Fattura N.' . $this->invoice->invoice_number)
+            ->subject('Promemoria Scadenza: Fattura N.' . $this->invoice->invoice_number)
             ->greeting('Gentile ' . $clientName . ',')
             ->line('Ti inviamo un promemoria per la fattura numero ' . $this->invoice->invoice_number . ' di €' . number_format($this->invoice->total, 2, ',', '.'))
             ->line('La data di scadenza per il pagamento è il ' . $dueDate . '.')

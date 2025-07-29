@@ -1,5 +1,5 @@
 <div>
-    @if($client->exists)
+    {{-- @if($client->exists)
 
     <x-slot name="header" class="">
         <div class="flex ml-auto justify-between">
@@ -18,7 +18,16 @@
         </div>
     </x-slot>
         
-    @endif
+    @endif --}}
+
+   
+    <x-slot name="header" class="">
+        <div class="flex ml-auto justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ $client->exists ? __('Edit Client') : __('Add Client') }}
+            </h2>
+        </div>
+    </x-slot>
     
     <div class="p-12">
         

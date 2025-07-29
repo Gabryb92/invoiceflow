@@ -53,6 +53,8 @@ class ProductForm extends Component
                 Product::create($validatedData);
                 session()->flash('message', "Product created successfully.");
                 $this->reset();
+
+                $this->product = new Product();
             } 
         } catch (Exception $e) {
             session()->flash('error', "An error occurred while saving, please try again later.");

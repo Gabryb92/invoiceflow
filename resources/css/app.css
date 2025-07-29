@@ -22,3 +22,13 @@ input[type="number"] {
 header div.max-w-7xl:first-of-type {
     max-width: 100%;
 }
+
+/* Sovrascrive lo stile di autocompletamento del browser per il tema scuro */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-text-fill-color: #e5e7eb; /* Colore del testo (es. text-gray-200) */
+    -webkit-box-shadow: 0 0 0px 1000px #374151 inset; /* Colore di sfondo (es. bg-gray-700) */
+    transition: background-color 5000s ease-in-out 0s; /* Trucco per evitare che il browser lo cambi di nuovo */
+}

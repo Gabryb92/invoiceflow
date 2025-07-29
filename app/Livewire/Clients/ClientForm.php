@@ -89,6 +89,8 @@ class ClientForm extends Component
                 session()->flash('message', 'Client created successfully.');
     
                 $this->reset();
+
+                $this->client = new Client();
                 
             }
             
