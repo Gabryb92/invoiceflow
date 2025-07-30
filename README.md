@@ -2,6 +2,10 @@
 
 Un'applicazione web completa per la gestione di clienti, prodotti e fatture, costruita con lo stack TALL (Tailwind, Alpine.js, Laravel, Livewire).
 
+<p align="center">
+  <img src="public/img/invoiceflow400x400.png" alt="logo of invoice flow" title="Invoice Flow" />
+</p>
+
 ## 🚀 Informazioni sul Progetto
 
 InvoiceFlow è un'applicazione web su misura progettata per semplificare la gestione amministrativa di una piccola azienda o un freelance. Permette di gestire un catalogo di prodotti/servizi, un'anagrafica clienti e l'intero ciclo di vita delle fatture, dalla creazione all'incasso, con funzionalità automatiche per risparmiare tempo.
