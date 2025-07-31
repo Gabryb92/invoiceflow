@@ -8,7 +8,7 @@ Un'applicazione web completa per la gestione di clienti, prodotti e fatture, cos
 
 ## 🚀 Informazioni sul Progetto
 
-InvoiceFlow è un'applicazione web su misura progettata per semplificare la gestione amministrativa di una piccola azienda o un freelance. Permette di gestire un catalogo di prodotti/servizi, un'anagrafica clienti e l'intero ciclo di vita delle fatture, dalla creazione all'incasso, con funzionalità automatiche per risparmiare tempo.
+InvoiceFlow è un'applicazione web su misura progettata per semplificare la gestione amministrativa di una piccola azienda o di un freelance. Permette di gestire un catalogo di prodotti/servizi, un'anagrafica clienti e l'intero ciclo di vita delle fatture, dalla creazione all'incasso, con funzionalità automatiche per risparmiare tempo.
 
 Il progetto è stato sviluppato seguendo le best practice moderne, con un'architettura reattiva basata su componenti e un'attenzione particolare alla sicurezza e alla robustezza del codice.
 
