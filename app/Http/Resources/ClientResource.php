@@ -36,6 +36,9 @@ class ClientResource extends JsonResource
                 'cliente_dal' => $this->created_at->format('d/m/Y'),
                 'is_anonimizzato' => (bool) $this->is_anonymized, // Cast a booleano per consistenza
             ],
+            'relationships' => [
+                'invoices' => InvoiceResource::collection($this->whenLoaded('invoices'))
+            ],
             'links' => [
                 'self' => route('api.clients.show', ['client' => $this->id]),
             ],

@@ -34,7 +34,7 @@ class InvoiceResource extends JsonResource
                 
             ],
             'links' => [
-                'self' => route('api.invoices.show', ['invoices' => $this->id]),
+                'self' => route('api.invoices.show', ['invoice' => $this->id]),
             ]
         ];
     }
