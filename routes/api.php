@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ClientController;
 use App\Http\Controllers\Api\V1\InvoiceController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\ProductController;
-
-
+use App\Http\Controllers\InvoicePdfController;
 
 Route::post('/v1/login', [AuthController::class, 'login'])->name('api.login');
 
@@ -29,6 +29,10 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::delete('products/{product}/forceDelete', [ProductController::class, 'forceDelete'])->name('api.products.forceDelete')->withTrashed();
 
     Route::get('products/{product}', [ProductController::class, 'show'])->name('api.products.show')->withTrashed();
+
+    // --- Rotte per pagamenti e PDF ---
+    Route::post('invoices/{invoice}/payments', [PaymentController::class, 'store'])->name('api.invoices.payments.store');
+    Route::get('invoices/{invoice}/pdf',[InvoicePdfController::class,'downloadPdf'])->name('api.invoices.pdf');
 
     Route::apiResource('clients', ClientController::class)->except(['show'])->names('api.clients');
     Route::apiResource('products', ProductController::class)->except(['show'])->names('api.products');

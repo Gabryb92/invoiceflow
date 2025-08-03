@@ -44,7 +44,7 @@ class PaymentForm extends Component
     }
 
     public function savePayment(){
-         $this->amount_paid = str_replace(',', '.', $this->amount_paid);
+        $this->amount_paid = str_replace(',', '.', $this->amount_paid);
 
         $dataValidated = $this->validate();
 
