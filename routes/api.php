@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
 
     Route::delete('products/{product}/forceDelete', [ProductController::class, 'forceDelete'])->name('api.products.forceDelete')->withTrashed();
 
-    Route::get('products/{product}', [ProductController::class, 'show'])->name('api.clients.show')->withTrashed();
+    Route::get('products/{product}', [ProductController::class, 'show'])->name('api.products.show')->withTrashed();
 
     Route::apiResource('clients', ClientController::class)->except(['show'])->names('api.clients');
     Route::apiResource('products', ProductController::class)->except(['show'])->names('api.products');
