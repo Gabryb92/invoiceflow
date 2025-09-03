@@ -18,7 +18,7 @@ Il progetto è stato sviluppato seguendo le best practice moderne, con un'archit
 
 -   [Livewire](https://laravel-livewire.com/): Per creare un'interfaccia dinamica e reattiva senza dover scrivere JavaScript complesso.
 
--   [Tailwind CSS](https://tailwindcss.com/): Per uno stile moderno e un'interfaccia utente completamente personalizzata e responsiva.
+-   [Tailwind CSS](https://tailwindcss.com/): Per uno stile moderno e un'interfaccia utente completamente personalizzata e responsive.
 
 -   [Alpine.js](https://alpinejs.dev/): Per piccole interattività nel frontend, come la chiusura automatica degli alert e le animazioni delle modali.
 
