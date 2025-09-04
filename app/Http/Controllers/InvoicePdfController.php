@@ -13,9 +13,11 @@ class InvoicePdfController extends Controller
         $invoice->load('client', 'invoiceItems');
 
         //Convertiamo il logo in Base64
-        $logoPath = public_path('img/logo.png');
+        $logoPath = file_exists('img/logo.png') ? public_path('img/logo.png') : public_path('img/default.png');
+        
 
         $logoData = base64_encode(file_get_contents($logoPath));
+        
 
         $logoBase64 = 'data:image/png;base64,' . $logoData;
 
