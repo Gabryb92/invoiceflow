@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Fattura {{ $invoice->invoice_number }}</title>
+    <title> {{ $invoice->type === 'invoice' ? 'Fattura' : "Preventivo"}} {{$invoice->invoice_number}}</title>
     <style>
         /* Import font - alcuni generatori PDF potrebbero non supportarlo */
         @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
@@ -331,7 +331,7 @@
                 </div>
                 <div class="header-right">
                     <div class="invoice-details">
-                        <h2>Invoice {{ $invoice->invoice_number }}</h2>
+                        <h2>{{ $invoice->type === 'invoice' ? 'Fattura' : "Preventivo"}} {{ $invoice->invoice_number }}</h2>
                         <p>{{ $invoice->issue_date->format('Y-m-d') }}</p>
                     </div>
                 </div>
@@ -342,7 +342,7 @@
             <div class="header-row">
                 <div class="header-left">
                     <div class="client-info">
-                        <h3>Invoice to</h3>
+                        <h3>{{ $invoice->type === 'invoice' ? 'Invoice' : "Quote"}} to</h3>
                         <p>
                             <strong>{{ $invoice->client->company_name ?? $invoice->client->first_name . ' ' . $invoice->client->last_name }}</strong><br>
                             {{ $invoice->client->address }}<br>
@@ -404,24 +404,27 @@
             </tr>
         </table>
 
-        <!-- Terms and conditions -->
-        <div class="terms-section">
-            <div class="terms-content">
-                <div class="terms-left">
-                    <h4>Termini &amp; Condizioni</h4>
-                    <p>Si prega di effettuare il pagamento entro 30 giorni dall'emissione della fattura.</p>
-                </div>
-                <div class="terms-right">
-                    <h4>Opzioni di pagamento</h4>
-                    <ul>
-                        <li>Paypal</li>
-                        <li>Stripe</li>
-                        <li>Bonifico</li>
-                    </ul>
+        @if($invoice->type === 'invoice')
+
+            <!-- Terms and conditions -->
+            <div class="terms-section">
+                <div class="terms-content">
+                    <div class="terms-left">
+                        <h4>Termini &amp; Condizioni</h4>
+                        <p>Si prega di effettuare il pagamento entro 30 giorni dall'emissione della fattura.</p>
+                    </div>
+                    <div class="terms-right">
+                        <h4>Opzioni di pagamento</h4>
+                        <ul>
+                            <li>Paypal</li>
+                            <li>Stripe</li>
+                            <li>Bonifico</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        @endif
         <!-- Footer -->
         <div class="invoice-footer">
             <div class="footer-content">

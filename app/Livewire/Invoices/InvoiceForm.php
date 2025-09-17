@@ -25,10 +25,14 @@ class InvoiceForm extends Component
 
     public $total = 0.00;
 
+    public $type = 'invoice';
+
     public $status = 'unpaid';
 
     public $notes = '';
 
+    protected $invoiceStatuses = ['unpaid', 'partially_paid', 'paid', 'cancelled'];
+    protected $quoteStatuses = ['draft', 'sent', 'accepted', 'rejected', 'cancelled'];
 
     public function mount(Invoice $invoice){
         $this->invoice = $invoice;
@@ -40,44 +44,83 @@ class InvoiceForm extends Component
             $this->due_date = $this->invoice->due_date->format('Y-m-d');
             $this->notes = $this->invoice->notes;
             $this->status = $this->invoice->status;
+            $this->type = $this->invoice->type;
 
             // Carica gli elementi della fattura
             $this->invoiceItems = $this->invoice->invoiceItems->toArray();
-        } else {
+        } 
+        // Se stiamo creando, controlliamo la rotta per decidere il tipo
+        elseif (request()->route()->getName() === 'preventivi.create') {
+            $this->type = 'quote';
+            $this->status = 'draft'; // Stato di default per un nuovo preventivo
+            $this->generateQuoteNumber();
+        } 
+        else {
             $this->generateInvoiceNumber();
         }
     }
 
 
-    public function rules(){
-        $invoiceId = $this->invoice?->id;
+    // public function rules(){
+    //     $invoiceId = $this->invoice?->id;
 
-        return [
+    //     return [
+    //         'client_id' => 'required|exists:clients,id',
+    //         'invoice_number' => 'required|string|max:255|unique:invoices,invoice_number,' . $invoiceId,
+    //         'issue_date' => 'required|date',
+    //         'due_date' => 'required|date|after_or_equal:issue_date',
+    //         'notes' => 'nullable|string|max:1000',
+    //         'status' => 'required|in:' . implode(',', $allowedStatuses),
+            
+
+    //         //Regola che controlla se i prodotti sono stati aggiunti
+    //         'invoiceItems' => 'required|array|min:1',
+
+    //         //Regole per le voci fattura
+    //         "invoiceItems.*.description"=> [
+    //             'required',
+    //             'string',
+    //             'max:255',
+    //         ],
+    //         "invoiceItems.*.quantity" => 'required|numeric|min:1',
+    //         "invoiceItems.*.unit_price" => [
+    //             'required',
+    //             'numeric',
+    //         ],
+    //         "invoiceItems.*.vat_rate" => 'required|numeric|min:0',
+    //     ];
+    // }
+
+    
+
+    public function rules()
+    {
+        $invoiceId = $this->invoice?->id;
+        
+        // 1. Definiamo le regole comuni a entrambi
+        $rules = [
             'client_id' => 'required|exists:clients,id',
             'invoice_number' => 'required|string|max:255|unique:invoices,invoice_number,' . $invoiceId,
             'issue_date' => 'required|date',
             'due_date' => 'required|date|after_or_equal:issue_date',
             'notes' => 'nullable|string|max:1000',
-            'status' => 'required|in:unpaid,partially_paid,paid,cancelled',
-            // "shipping_amount" => 'nullable|numeric|min:0',
-            // "discount_amount" => 'nullable|numeric|min:0',
-
-            //Regola che controlla se i prodotti sono stati aggiunti
             'invoiceItems' => 'required|array|min:1',
-
-            //Regole per le voci fattura
-            "invoiceItems.*.description"=> [
-                'required',
-                'string',
-                'max:255',
-            ],
+            "invoiceItems.*.description"=> ['required', 'string', 'max:255'],
             "invoiceItems.*.quantity" => 'required|numeric|min:1',
-            "invoiceItems.*.unit_price" => [
-                'required',
-                'numeric',
-            ],
+            "invoiceItems.*.unit_price" => ['required', 'numeric'],
             "invoiceItems.*.vat_rate" => 'required|numeric|min:0',
         ];
+
+        // 2. Aggiungiamo la regola per lo 'status' in modo condizionale
+        if ($this->type === 'quote') {
+            // Se è un preventivo, può avere solo questi stati
+            $rules['status'] = 'required|in:' . implode(',', $this->quoteStatuses);
+        } else {
+            // Altrimenti (se è una fattura), può avere solo questi altri stati
+            $rules['status'] = 'required|in:' . implode(',', $this->invoiceStatuses);
+        }
+
+        return $rules;
     }
 
 
@@ -120,11 +163,31 @@ class InvoiceForm extends Component
     // }
 
 
+    public function generateQuoteNumber()
+    {
+        $year = date('Y');
+        $prefix = "PREV-{$year}-";
 
-    public function generateInvoiceNumber()
+        $lastQuote = Invoice::where('type', 'quote')
+            ->whereYear('issue_date', $year)
+            ->orderBy('invoice_number', 'desc')
+            ->first();
+        
+        $nextNumber = 1;
+        if ($lastQuote) {
+            $lastNumber = (int) substr($lastQuote->invoice_number, -4);
+            $nextNumber = $lastNumber + 1;
+        }
+        
+        $this->invoice_number = $prefix . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+
+
+    public function generateInvoiceNumber(bool $force = false)
     {
         // Se la fattura esiste ed ha già un numero, usalo
-        if ($this->invoice->exists && !empty($this->invoice->invoice_number)) {
+        if ($this->invoice->exists && !empty($this->invoice->invoice_number) && !$force) {
             $this->invoice_number = $this->invoice->invoice_number;
             return;
         }
@@ -133,7 +196,8 @@ class InvoiceForm extends Component
         $prefix = "FATT-{$year}-";
 
         // Trova l'ultima fattura dell'anno
-        $lastInvoice = Invoice::whereYear('issue_date', $year)
+        $lastInvoice = Invoice::where('type','invoice')
+            ->whereYear('issue_date', $year)
             ->where('invoice_number', 'like', "$prefix%")
             ->orderBy('invoice_number', 'desc')
             ->first();
@@ -160,6 +224,33 @@ class InvoiceForm extends Component
         $this->invoice_number = $newInvoiceNumber;
 
         //Log::info('Generated invoice number: ' . $this->invoice_number);
+    }
+
+
+    public function convertToInvoice()
+    {
+        if (!$this->invoice->exists || $this->invoice->type !== 'quote') {
+            session()->flash('error', 'Azione non permessa.');
+            return;
+        }
+
+        // Forza la generazione di un NUOVO numero di fattura
+        $this->generateInvoiceNumber(true);
+
+
+        // Aggiorna il record esistente
+        $this->invoice->update([
+            'type'           => 'invoice',
+            'status'         => 'unpaid',
+            'issue_date'     => now(),
+            'due_date'       => now()->addDays(30),
+            'invoice_number' => $this->invoice_number,
+        ]);
+
+        
+        
+        // Ricarica la pagina per vedere i cambiamenti
+        return redirect()->route('fatture.edit', $this->invoice)->with('message', 'Preventivo convertito in fattura con successo!');;
     }
 
     public function addDiscountItem(){
@@ -338,6 +429,7 @@ class InvoiceForm extends Component
                         'due_date' => $this->due_date,
                         'notes' => $this->notes,
                         'status' => $this->status,
+                        'type' => $this->type,
                         'subtotal' => $totals['subtotal'],
                         'vat_amount' => $totals['vat_amount'],
                         'total' => $totals['total'],
@@ -357,6 +449,7 @@ class InvoiceForm extends Component
                 DB::transaction(function () use ($totals) {
                     $invoice = Invoice::create([
                         'client_id' => $this->client_id,
+                        'type' => $this->type,
                         'invoice_number' => $this->invoice_number,
                         'issue_date' => $this->issue_date,
                         'due_date' => $this->due_date,
@@ -377,7 +470,7 @@ class InvoiceForm extends Component
                 // Reset completo del componente
                 $this->reset([
                     'client_id', 'invoice_number', 'issue_date', 'due_date', 
-                    'invoiceItems', 'subtotal', 'vat_amount', 'total', 'status', 'notes'
+                    'invoiceItems', 'subtotal', 'vat_amount', 'total', 'status', 'notes','type',
                 ]);
                 
                 // Reset esplicito della cache della proprietà computed

@@ -15,6 +15,8 @@ class InvoiceList extends Component
     public $search = "";
     protected $paginationTheme = 'tailwind';
 
+    public $filterType = 'invoice';
+
 
     public function deleteInvoice(int $invoice_id){
         try{
@@ -33,6 +35,9 @@ class InvoiceList extends Component
 
         // Iniziamo la query di base con la relazione pre-caricata
         $query = Invoice::query()->with('client');
+
+        // Applica il filtro in base al tipo selezionato dall'utente
+        $query->where('type', $this->filterType);
 
         // Applichiamo il filtro di ricerca
         $query->when($this->search, function ($q) {

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            
             $table->foreignId('client_id')->constrained()->onDelete('restrict');
+            $table->string('type')->default('invoice');
             $table->string('invoice_number')->unique();
             $table->date('issue_date')->index();
             $table->date('due_date')->index();
@@ -22,7 +24,7 @@ return new class extends Migration
             $table->decimal('discount_amount', 10, 2)->default(0.00);
             $table->decimal('total', 10, 2)->default(0.00)->index();
             $table->decimal('shipping_amount', 10, 2)->default(0.00);
-            $table->enum('status', ['unpaid', 'paid', 'partially_paid','cancelled'])->default('unpaid')->index();
+            $table->enum('status', ['unpaid', 'paid', 'partially_paid','cancelled','draft','sent','accepted','rejected'])->default('unpaid')->index();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

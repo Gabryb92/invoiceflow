@@ -40,6 +40,9 @@ Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
     Route::get('/fatture/create', InvoiceForm::class)->name('fatture.create');
     Route::get('/fatture/{invoice}/edit', InvoiceForm::class)->name('fatture.edit');
 
+    //Preventivo
+    Route::get('/preventivi/create', App\Livewire\Invoices\InvoiceForm::class)->name('preventivi.create');
+
     //Pagina dettaglio Fattura (Show)
     Route::get('/fatture/{invoice}', InvoiceShow::class)->name('fatture.show');
 

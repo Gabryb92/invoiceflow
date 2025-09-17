@@ -14,6 +14,8 @@ class InvoiceShow extends Component
 
     public float $amountPaid = 0;
 
+    
+
 
 
     #[On('paymentSaved')]

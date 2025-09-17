@@ -4,7 +4,7 @@
         <x-slot name="header">
             <div class="flex ml-auto justify-between">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Edit Invoice') }}
+                    {{$type === 'invoice' ? __('Edit Invoice') : __('Edit Quote') }}
                 </h2>
             </div>
         </x-slot>
@@ -12,7 +12,7 @@
         <x-slot name="header">
             <div class="flex ml-auto justify-between">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Add Invoice') }}
+                    {{$type === 'invoice' ? __('Add Invoice') : __('Add Quote') }}
                 </h2>
             </div>
         </x-slot>
@@ -27,7 +27,7 @@
                     <x-alert />
 
                     <form wire:submit.prevent="save" class="grid grid-cols-1 sm:grid-cols-2">
-                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Invoice Dates')}}  {{$invoice->exists ? "- " . $this->invoice_number : ""}}</h2>
+                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{$type === 'invoice' ?__('Invoice Dates') : _('Quote Dates')}}  {{$invoice->exists ? "- " . $this->invoice_number : ""}}</h2>
                         
 
                         <div class="grid gap-4 sm:grid-cols-4 sm:gap-4 sm:col-span-2">
@@ -54,10 +54,18 @@
                             <div class="sm:col-span-2">
                                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Status') }}</label>
                                 <select wire:model="status" id="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option value="unpaid">{{__('Unpaid')}}</option>
-                                    <option value="partially_paid">{{__('Partially Paid')}}</option>
-                                    <option value="paid">{{__('Paid')}}</option>
-                                    <option value="cancelled">{{__('Cancelled')}}</option>
+                                    @if($type === 'invoice')
+                                        <option value="unpaid">{{__('Unpaid')}}</option>
+                                        <option value="partially_paid">{{__('Partially Paid')}}</option>
+                                        <option value="paid">{{__('Paid')}}</option>
+                                        <option value="cancelled">{{__('Cancelled')}}</option>
+                                    @else {{-- Se è un preventivo ('quote') --}}
+                                        <option value="draft">{{__('Draft')}}</option>
+                                        <option value="sent">{{__('Sent')}}</option>
+                                        <option value="accepted">{{__('Accepted')}}</option>
+                                        <option value="rejected">{{__('Rejected')}}</option>
+                                        <option value="cancelled">{{__('Cancelled')}}</option>
+                                    @endif
                                     
                                 </select>
                                 @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -253,9 +261,14 @@
                             </div>
 
                             <div class="sm:col-span-2 mt-4 flex justify-end">
-                                {{-- <x-primary-button class="mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
-                                {{-- <x-primary-button class="sm:col-span-1 mt-4 mr-2 sm:mt-4 sm:mr-2"> --}}
-                                <x-primary-button class="mr-2  sm:mr-2">
+                                <div>
+                                    @if($invoice->exists && $type === 'quote')
+                                        <x-success-button type="button" wire:click="convertToInvoice" wire:confirm="Sei sicuro di voler convertire questo preventivo in una fattura? L'azione è irreversibile." >
+                                            {{ __('Converti in Fattura') }}
+                                        </x-success-button>
+                                    @endif
+                                </div>
+                                <x-primary-button class="ml-2 mr-2  sm:mr-2">
                                     {{ __('Save') }}
                                 </x-primary-button>
 
