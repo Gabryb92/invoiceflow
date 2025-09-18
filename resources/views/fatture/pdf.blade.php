@@ -70,6 +70,12 @@
         color: var(--font-color-dark);
         font-size: 9.5pt;
     }
+
+    .notes-section p {
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
     /* FINE NUOVA SEZIONE */
 
     .invoice-summary { width: 45%; margin-left: auto; }
