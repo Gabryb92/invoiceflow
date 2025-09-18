@@ -64,6 +64,7 @@
         margin-bottom: 30px;
         font-size: 9pt;
         color: var(--font-color-light);
+        page-break-inside: avoid !important;
     }
     .notes-section h4 {
         margin-bottom: 5px;
@@ -72,7 +73,9 @@
     }
 
     .notes-section p {
+        
         white-space: pre-wrap;
+        margin-top: 0;
     }
     /* FINE NUOVA SEZIONE */
 
