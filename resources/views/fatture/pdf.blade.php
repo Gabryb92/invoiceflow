@@ -152,12 +152,14 @@
             </tbody>
         </table>
 
+        @if($invoice->notes)
         <div class="notes-section">
-            <h4>Note</h4>
+            <h4>Note:</h4>
             <p>
-                {{ $invoice->notes }}
+                {!! nl2br(e($invoice->notes)) !!}
             </p>
         </div>
+        @endif
 
         <div class="invoice-summary">
             <table class="summary-table">
