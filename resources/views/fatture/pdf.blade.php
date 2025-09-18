@@ -67,6 +67,7 @@
         page-break-inside: avoid !important;
     }
     .notes-section h4 {
+        line-height: 1 !important;
         margin-bottom: 0px !important ;
         color: var(--font-color-dark);
         font-size: 9.5pt;
@@ -156,7 +157,7 @@
         <div class="notes-section">
             <h4>Note:</h4>
             <p>
-                {!! nl2br(e($invoice->notes)) !!}
+                {{ $invoice->notes }}
             </p>
         </div>
         @endif
