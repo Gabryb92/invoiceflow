@@ -15,8 +15,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Invoices\InvoiceShow;
 
-Route::get('/', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 
 Route::middleware(['auth','verified'])->prefix('dashboard')->group(function () {
