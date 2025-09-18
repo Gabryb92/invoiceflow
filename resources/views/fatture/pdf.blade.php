@@ -109,19 +109,21 @@
             vertical-align: top;
         }
 
-        /*Prove per spazio automatico voci preventivo/fattura*/
+        /* --- GESTIONE AVANZATA INTERRUZIONI DI PAGINA --- */
 
-        .items-table tr {
-            page-break-inside: avoid;
+        /* Applichiamo la regola sia alle righe che alle celle con !important
+        per forzare il generatore PDF a non spezzarle mai. */
+        .items-table tr, .items-table td {
+            page-break-inside: avoid !important;
         }
 
-        
+        /* Applichiamo !important anche al blocco dei totali per sicurezza. */
         .invoice-summary {
-            page-break-inside: avoid; 
+            page-break-inside: avoid !important; 
             page-break-before: auto;  
         }
 
-        /*Fine prove*/
+        /* --- FINE GESTIONE AVANZATA --- */
             
         .items-table th:nth-child(2), .items-table td:nth-child(2),
         .items-table th:nth-child(3), .items-table td:nth-child(3),
