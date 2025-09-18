@@ -5,153 +5,82 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ $documentTitle }} {{ $invoice->invoice_number }}</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
-        :root {
-            --font-family: 'Inter', sans-serif;
-            --font-color-dark: #1a202c;
-            --font-color-light: #718096;
-            --primary-color: #3675dd;
-            --background-light: #f7fafc;
-            --border-color: #e2e8f0;
-        }
+    :root {
+        --font-family: 'Inter', sans-serif;
+        --font-color-dark: #1a202c;
+        --font-color-light: #718096;
+        --primary-color: #3675dd;
+        --background-light: #f7fafc;
+        --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+        font-family: var(--font-family);
+        font-size: 9.5pt; /* RIDOTTO LEGGERMENTE */
+        color: var(--font-color-dark);
+        background-color: #fff;
+        line-height: 1.5; /* RIDOTTO */
+        padding: 1cm; /* RIDOTTO */
+    }
+    
+    .invoice-container { width: 100%; margin: 0 auto; }
 
-        /* * MODIFICA #1: RISOLUZIONE PADDING ESTERNO 
-         * Rimuoviamo @page e applichiamo il padding direttamente al body
-         * per massima compatibilità con i generatori PDF.
-         */
-        body {
-            font-family: var(--font-family);
-            font-size: 10pt;
-            color: var(--font-color-dark);
-            background-color: #fff;
-            line-height: 1.6;
-            padding: 1.5cm; /* <-- ECCO LA SOLUZIONE PER I BORDI */
-        }
+    /* RIDOTTI MARGINI TRA LE SEZIONI */
+    .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
+    .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
+    .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    
+    .header-left, .header-right { display: table-cell; vertical-align: middle; }
+    .header-left { width: 60%; }
+    .header-right { width: 40%; text-align: right; }
+    .logo { width: 45px; height: auto; margin-right: 15px; vertical-align: middle; } /* RIDOTTO */
+    .company-name { font-size: 15pt; font-weight: 700; display: inline-block; vertical-align: middle; } /* RIDOTTO */
+    .document-title { font-size: 18pt; font-weight: 700; color: var(--primary-color); margin: 0; } /* RIDOTTO */
+    .document-details p { margin: 2px 0 0 0; font-size: 9.5pt; color: var(--font-color-light); }
+
+    .meta-block { display: table-cell; vertical-align: top; width: 50%; }
+    .meta-heading { font-size: 8pt; font-weight: 500; color: var(--font-color-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; } /* RIDOTTO */
+    .meta-content { font-size: 9.5pt; line-height: 1.4; } /* RIDOTTO */
+    .meta-content strong { font-weight: 500; }
+    .meta-block.client-info { padding-left: 30px; text-align: right; }
+
+    /* RIDOTTO PADDING CELLE TABELLA (MOLTO EFFICACE) */
+    .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
+    .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
         
-        .invoice-container { width: 100%; margin: 0 auto; }
-        .invoice-header { display: table; width: 100%; margin-bottom: 40px; }
-        .header-left, .header-right { display: table-cell; vertical-align: middle; }
-        .header-left { width: 60%; }
-        .header-right { width: 40%; text-align: right; }
-        .logo { width: 50px; height: auto; margin-right: 15px; vertical-align: middle; }
-        .company-name { font-size: 16pt; font-weight: 700; display: inline-block; vertical-align: middle; }
-        .document-title { font-size: 20pt; font-weight: 700; color: var(--primary-color); margin: 0; }
-        .document-details p { margin: 2px 0 0 0; font-size: 10pt; color: var(--font-color-light); }
+    .items-table th:nth-child(2), .items-table td:nth-child(2),
+    .items-table th:nth-child(3), .items-table td:nth-child(3),
+    .items-table th:nth-child(4), .items-table td:nth-child(4),
+    .items-table th:nth-child(5), .items-table td:nth-child(5) { text-align: right; }
 
-        .invoice-meta {
-            display: table;
-            width: 100%;
-            margin-bottom: 40px;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 0;
-        }
+    .item-description strong { font-weight: 500; }
 
-        .meta-block {
-            display: table-cell;
-            vertical-align: top;
-            width: 50%;
-        }
+    /* NUOVA SEZIONE PER LE NOTE */
+    .notes-section {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 9pt;
+        color: var(--font-color-light);
+    }
+    .notes-section h4 {
+        margin-bottom: 5px;
+        color: var(--font-color-dark);
+        font-size: 9.5pt;
+    }
+    /* FINE NUOVA SEZIONE */
 
-        .meta-heading {
-            font-size: 8pt;
-            font-weight: 500;
-            color: var(--font-color-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
+    .invoice-summary { width: 45%; margin-left: auto; }
+    .summary-table { width: 100%; border-collapse: collapse; }
+    .summary-table th, .summary-table td { padding: 8px 10px; text-align: right; } /* RIDOTTO */
+    .summary-table th { text-align: left; font-weight: 500; color: var(--font-color-light); }
+    .summary-total { border-top: 2px solid var(--border-color); }
+    .summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; } /* RIDOTTO */
 
-        .meta-content {
-            font-size: 10pt;
-            line-height: 1.5;
-        }
-        
-        .meta-content strong { font-weight: 500; }
-
-        /* * MODIFICA #2: ALLINEAMENTO BLOCCO CLIENTE
-         * Aggiungiamo text-align: right per allineare tutto il contenuto
-         * del blocco destro sulla destra.
-         */
-        .meta-block.client-info {
-            padding-left: 30px;
-            text-align: right; /* <-- ECCO LA SOLUZIONE PER L'ALLINEAMENTO */
-        }
-
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-
-        .items-table th {
-            text-align: left;
-            padding: 12px 10px;
-            background-color: var(--background-light);
-            color: var(--font-color-light);
-            font-size: 9pt;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .items-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: top;
-        }
-
-        /* --- GESTIONE AVANZATA INTERRUZIONI DI PAGINA --- */
-
-        /* Applichiamo la regola sia alle righe che alle celle con !important
-        per forzare il generatore PDF a non spezzarle mai. */
-        .items-table tr, .items-table td {
-            page-break-inside: avoid !important;
-        }
-
-        /* Applichiamo !important anche al blocco dei totali per sicurezza. */
-        .invoice-summary {
-            page-break-inside: avoid !important; 
-            page-break-before: auto;  
-        }
-
-        /* --- FINE GESTIONE AVANZATA --- */
-            
-        .items-table th:nth-child(2), .items-table td:nth-child(2),
-        .items-table th:nth-child(3), .items-table td:nth-child(3),
-        .items-table th:nth-child(4), .items-table td:nth-child(4),
-        .items-table th:nth-child(5), .items-table td:nth-child(5) {
-            text-align: right;
-        }
-
-        .item-description strong { font-weight: 500; }
-        .invoice-summary { width: 45%; margin-left: auto; }
-        .summary-table { width: 100%; border-collapse: collapse; }
-        .summary-table th, .summary-table td { padding: 10px; text-align: right; }
-        .summary-table th { text-align: left; font-weight: 500; color: var(--font-color-light); }
-        .summary-total { border-top: 2px solid var(--border-color); }
-        .summary-total th, .summary-total td { font-size: 14pt; font-weight: 700; color: var(--primary-color); padding-top: 15px; }
-
-        /* Posizioniamo il footer in fondo alla pagina in modo più robusto */
-        .invoice-footer {
-            position: fixed;
-            bottom: -50px; /* Adatta questo valore se necessario */
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 8pt;
-            color: var(--font-color-light);
-        }
-
-    </style>
+    .invoice-footer { position: fixed; bottom: -40px; left: 0; right: 0; text-align: center; font-size: 8pt; color: var(--font-color-light); }
+</style>
 </head>
 <body>
     <div class="invoice-container">
@@ -215,6 +144,13 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="notes-section">
+            <h4>Note</h4>
+            <p>
+                {{ $invoice->notes }}
+            </p>
+        </div>
 
         <div class="invoice-summary">
             <table class="summary-table">
