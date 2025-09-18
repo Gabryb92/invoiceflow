@@ -10,6 +10,12 @@ class InvoicePdfController extends Controller
 {
     public function downloadPdf(Invoice $invoice){
 
+        // 1. Definiamo il titolo (maiuscolo) per essere usato DENTRO il PDF
+        $documentTitle = $invoice->type === 'invoice' ? 'Fattura' : 'Preventivo';
+
+        // 2. Definiamo una versione minuscola per il NOME DEL FILE
+        $documentFileName = $invoice->type === 'invoice' ? 'fattura' : 'preventivo';
+
         $invoice->load('client', 'invoiceItems');
 
         //Convertiamo il logo in Base64
@@ -21,7 +27,10 @@ class InvoicePdfController extends Controller
 
         $logoBase64 = 'data:image/png;base64,' . $logoData;
 
-        $viewData = ['invoice' => $invoice,'logo'=>$logoBase64];
+        $viewData = ['invoice' => $invoice,
+            'logo'=>$logoBase64, 
+            'documentTitle' => $documentTitle 
+        ];
 
         
         $pdf = Pdf::loadView('fatture.pdf', $viewData)
@@ -30,6 +39,9 @@ class InvoicePdfController extends Controller
             'isRemoteEnabled' => true,
             'isHtml5ParserEnabled' => true,
             ]);
-        return $pdf->download("fattura_$invoice->invoice_number"."_pdf.pdf");
+
+        $fileName = "{$documentFileName}_{$invoice->invoice_number}.pdf";
+
+        return $pdf->download($fileName);
     }
 }

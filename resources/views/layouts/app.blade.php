@@ -27,10 +27,10 @@
         <meta name="theme-color" content="#ffffff">
         
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         @livewireStyles
 
-        {{-- <link rel="stylesheet" href="{{ asset('/build/assets/app.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('/build/assets/app.css') }}">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

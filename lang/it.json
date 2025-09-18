@@ -58,6 +58,8 @@
     "Restore": "Ripristina",
     "Invoices": "Fatture",
     "Quote": "Preventivo",
+    "Invoice to": "Fattura di",
+    "Quote to": "Preventivo per",
     "Add Invoice": "Aggiungi Fattura",
     "Add Quote": "Aggiungi Preventivo",
     "Edit Invoice": "Modifica Fattura",
