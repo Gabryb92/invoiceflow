@@ -72,9 +72,7 @@
     }
 
     .notes-section p {
-        white-space: normal;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
+        white-space: pre-wrap;
     }
     /* FINE NUOVA SEZIONE */
 
