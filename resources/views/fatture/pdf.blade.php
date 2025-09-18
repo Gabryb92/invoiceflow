@@ -73,11 +73,10 @@
         font-size: 9.5pt;
     }
 
-    .notes-section p {
-        
-        white-space: pre-wrap;
-        margin-top: 0 !important;
-    }
+    .notes-section .notes-content { /* <-- SELETTORE AGGIORNATO */
+    white-space: pre-wrap;
+    margin-top: 0 !important;
+}
     /* FINE NUOVA SEZIONE */
 
     .invoice-summary { width: 45%; margin-left: auto; }
@@ -156,9 +155,9 @@
         @if($invoice->notes)
         <div class="notes-section">
             <h4>Note:</h4>
-            <p>
+            <div class="notes-content">
                 {{ $invoice->notes }}
-            </p>
+            </div>
         </div>
         @endif
 
