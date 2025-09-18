@@ -48,7 +48,7 @@ Il progetto è stato sviluppato seguendo le best practice moderne, con un'archit
 
 -   Gestione Fatture (CRUD):
 
-    -   Creazione di fatture dinamiche con aggiunta di voci dal catalogo, sconti e spese di spedizione.
+    -   Creazione di fatture e preventivi dinamici con aggiunta di voci dal catalogo, sconti e spese di spedizione.
 
     -   Calcoli dei totali (imponibile, IVA, totale) in tempo reale.
 
