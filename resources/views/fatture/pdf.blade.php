@@ -108,7 +108,21 @@
             border-bottom: 1px solid var(--border-color);
             vertical-align: top;
         }
+
+        /*Prove per spazio automatico voci preventivo/fattura*/
+
+        .items-table tr {
+            page-break-inside: avoid;
+        }
+
         
+        .invoice-summary {
+            page-break-inside: avoid; 
+            page-break-before: auto;  
+        }
+
+        /*Fine prove*/
+            
         .items-table th:nth-child(2), .items-table td:nth-child(2),
         .items-table th:nth-child(3), .items-table td:nth-child(3),
         .items-table th:nth-child(4), .items-table td:nth-child(4),
