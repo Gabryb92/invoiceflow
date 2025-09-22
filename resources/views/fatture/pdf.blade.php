@@ -28,6 +28,10 @@
     
     .invoice-container { width: 100%; margin: 0 auto; }
 
+    .text-right{
+        text-align: right;
+    }
+
     /* RIDOTTI MARGINI TRA LE SEZIONI */
     .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
     .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
@@ -132,11 +136,12 @@
         <table class="items-table">
             <thead>
                 <tr>
-                    <th>Descrizione</th>
-                    <th>Quantità</th>
-                    <th>Prezzo Unit.</th>
-                    <th>IVA</th>
-                    <th>Totale</th>
+                    <th>{{__('Description')}}</th>
+                    <th>{{__('Quantity')}}</th>
+                    <th>{{__('Unit Price')}}</th>
+                    <th>{{__('Vat')}}</th>
+                    <th>{{__('Total')}}</th>
+                    <th>{{__('Total(IVA)')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -147,6 +152,7 @@
                     <td>€ {{ number_format($item->unit_price, 2, ',', '.') }}</td>
                     <td>{{ number_format($item->vat_rate, 2, '.', '') }}%</td>
                     <td>€ {{ number_format($item->quantity * $item->unit_price, 2, ',', '.') }}</td>
+                    <td class="text-right">€ {{ number_format(($item->quantity * $item->unit_price) * (1 + $item->vat_rate / 100), 2, ',', '.') }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -154,7 +160,7 @@
 
         @if($invoice->notes)
         <div class="notes-section">
-            <h4>Note:</h4>
+            <h4>{{__('Notes')}}:</h4>
             <div class="notes-content">
                 {{ $invoice->notes }}
             </div>

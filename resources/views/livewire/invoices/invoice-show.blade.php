@@ -99,6 +99,7 @@
                                             <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Unit Price')}}</th>
                                             <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Vat')}} (&percnt;)</th>
                                             <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pr-2">{{__('Total')}}</th>
+                                            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pr-2">{{__('Total(IVA)')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
@@ -111,6 +112,7 @@
                                             <td class="px-3 py-4 text-sm text-right text-gray-500 dark:text-gray-400">€ {{ number_format($item->unit_price, 2, ',', '.') }}</td>
                                             <td class="px-3 py-4 text-sm text-right text-gray-500 dark:text-gray-400">{{ number_format($item->vat_rate, 2, ',', '.') }}%</td>
                                             <td class="py-4 pl-3 pr-4 text-sm text-right font-medium text-gray-800 dark:text-gray-200 sm:pr-0">€ {{ number_format(($item->quantity * $item->unit_price), 2, ',', '.') }}</td>
+                                            <td class="py-4 pl-3 pr-4 text-sm text-right font-medium text-gray-800 dark:text-gray-200 sm:pr-0">€ {{ number_format(($item->quantity * $item->unit_price) * (1 + $item->vat_rate / 100), 2, ',', '.') }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
