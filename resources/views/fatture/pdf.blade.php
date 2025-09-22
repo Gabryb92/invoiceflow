@@ -23,7 +23,7 @@
         color: var(--font-color-dark);
         background-color: #fff;
         line-height: 1.5; /* RIDOTTO */
-        padding: 1cm; /* RIDOTTO */
+        padding: 1cm 1cm 2cm 1cm; /* RIDOTTO */
     }
     
     .invoice-container { width: 100%; margin: 0 auto; }
@@ -90,7 +90,16 @@
     .summary-total { border-top: 2px solid var(--border-color); }
     .summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; } /* RIDOTTO */
 
-    .invoice-footer { position: fixed; bottom: -40px; left: 0; right: 0; text-align: center; font-size: 8pt; color: var(--font-color-light); }
+    .invoice-footer {
+    position: fixed;
+    bottom: 0; /* Riporta il footer sul bordo inferiore della pagina */
+    left: 1cm; /* Allinea il footer con il padding sinistro del body */
+    right: 1cm; /* Allinea il footer con il padding destro del body */
+    text-align: center;
+    font-size: 8pt;
+    color: var(--font-color-light);
+    padding-bottom: 0.5cm; /* Aggiunge un po' d'aria dal fondo del foglio */
+}
 </style>
 </head>
 <body>
@@ -98,7 +107,7 @@
         <div class="invoice-header">
             <div class="header-left">
                 <img src="{{ $logo }}" alt="Logo" class="logo">
-                <span class="company-name">Gabriele Bonazza - Developer</span>
+                <span class="company-name">{{config('company.name')}} - {{config('company.job')}}</span>
             </div>
             <div class="header-right">
                 <h2 class="document-title">{{ $documentTitle }}</h2>
@@ -113,10 +122,10 @@
             <div class="meta-block">
                 <p class="meta-heading">DA</p>
                 <div class="meta-content">
-                    <strong>Gabriele Bonazza - Developer</strong><br>
-                    Viale Giacomo Leopardi 100<br>
-                    Lido degli Estensi (FE), 44029<br>
-                    gabriele.bonazza92@gmail.com
+                    <strong>{{ config('company.name') }} - {{config('company.job')}}</strong><br>
+                    {{config('company.address')}}<br>
+                    {{ config('company.city') }} {{ config('company.province') }}, {{config('company.zip_code')}}<br>
+                    {{ config('company.email') }}  {{ config('company.number') }}
                 </div>
             </div>
             <div class="meta-block client-info">
@@ -184,10 +193,12 @@
             </table>
         </div>
 
-        <div class="invoice-footer">
-            <span>gabrielebonazzadeveloper.com</span> &bull;
-            <span>+39 351 852 3204</span>
-        </div>
+        {{-- <div class="invoice-footer">
+            @if(config('company.site') != '')
+                <span>{{config('company.site')}}</span> &bull;
+            @endif
+            <span>{{config('company.number')}}</span>
+        </div> --}}
     </div>
 </body>
 </html>

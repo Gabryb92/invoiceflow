@@ -51,10 +51,13 @@
                         <div>
                             <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">DA</h2>
                             <div class="mt-3 text-gray-800 dark:text-gray-200">
-                                <p class="font-bold">Gabriele Bonazza - Developer</p>
-                                <p class="text-sm">Viale Giacomo Leopardi 100, 44029, Lido degli Estensi (FE)</p>
-                                <p class="text-sm">P.IVA: 12345678901</p>
-                                <p class="text-sm">info@tuasocieta.it</p>
+                                <p class="font-bold">{{config('company.name')}}</p>
+                                <p class="text-sm">{{config('company.address')}}, {{config('company.zip_code')}}, {{config('company.city')}} {{  config('company.province')  }}</p>
+                                @if(config('company.vat') != '')
+                                    <p class="text-sm">{{config('company.vat')}}</p>
+                                @endif
+                                <p class="text-sm">{{config('company.email')}}</p>
+                                
                             </div>
                         </div>
                         <div >
