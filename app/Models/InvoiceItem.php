@@ -18,6 +18,7 @@ class InvoiceItem extends Model
         'quantity',
         'unit_price',
         'vat_rate',
+        "unit_of_measure"
     ];
 
     protected $casts = [

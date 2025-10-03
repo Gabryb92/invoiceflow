@@ -146,6 +146,7 @@
             <thead>
                 <tr>
                     <th>{{__('Description')}}</th>
+                    <th>{{__('U/M')}}</th>
                     <th>{{__('Quantity')}}</th>
                     <th>{{__('Unit Price')}}</th>
                     <th>{{__('Vat')}}</th>
@@ -157,6 +158,7 @@
                 @foreach ($invoice->invoiceItems as $item)
                 <tr>
                     <td class="item-description"><strong>{{ $item->description }}</strong></td>
+                    <td>{{$item->unit_of_measure}}</td>
                     <td>{{ $item->quantity }}</td>
                     <td>€ {{ number_format($item->unit_price, 2, ',', '.') }}</td>
                     <td>{{ number_format($item->vat_rate, 2, '.', '') }}%</td>
@@ -166,7 +168,7 @@
                 @endforeach
             </tbody>
         </table>
-
+        
         @if($invoice->notes)
         <div class="notes-section">
             <h4>{{__('Notes')}}:</h4>

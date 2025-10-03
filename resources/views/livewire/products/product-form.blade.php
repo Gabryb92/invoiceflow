@@ -26,7 +26,7 @@
                     <x-alert />
 
                     <form wire:submit.prevent="save" class="grid sm:grid-cols-2">
-                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Product Data')}}</h2>
+                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Product Information')}}</h2>
                         
 
                         <div class="grid gap-4 sm:grid-cols-4 sm:gap-4 sm:col-span-2">
@@ -36,6 +36,10 @@
                                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{__('Name')}}</label>
                                 <input type="text" wire:model="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
                                 @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="default_unit_of_measure" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{__('Unit of measure')}}</label>
+                                <input type="text" wire:model="default_unit_of_measure" id="default_unit_of_measure" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="es. ora, mese, kg">
                             </div>
                             <div class="sm:col-span-2">
                                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{__('Description')}}</label>

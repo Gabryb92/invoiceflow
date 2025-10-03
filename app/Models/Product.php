@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ["name", "description", "default_unit_price", "default_vat_rate"];
+    protected $fillable = ["name", "description", "default_unit_price", "default_vat_rate","default_unit_of_measure"];
 
     protected $casts = [
         'default_unit_price' => 'decimal:2',

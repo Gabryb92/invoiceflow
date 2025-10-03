@@ -112,6 +112,9 @@
                                             <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                                                 {{ __('Description') }}
                                             </th>
+                                            <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                                                {{ __('Unit of measure') }}
+                                            </th>
                                             <th class="text-[14px]  px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                                                 {{ __('Quantity') }}
                                             </th>
@@ -140,6 +143,12 @@
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                                     @error('invoiceItems.' . $index . '.description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                 </td>
+
+                                                <td class="px-2 py-4 whitespace-nowrap">
+                                                    <input type="text" wire:model.live="invoiceItems.{{ $index }}.unit_of_measure" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                    @error('invoiceItems.' . $index . '.unit_of_measure') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                                </td>
+
                                                 {{-- Campo Quantità --}}
 
                                                 <td class="px-1 py-4 whitespace-nowrap min-w-[80px]">

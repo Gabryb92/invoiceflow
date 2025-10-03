@@ -50,6 +50,9 @@
                 <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                     {{ __('Name') }}
                 </th>
+                <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
+                    {{ __('U/M') }}
+                </th>
                 <th class="text-[14px]  px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                     {{ __('Prezzo di Default') }}
                 </th>
@@ -67,6 +70,9 @@
                 <tr wire:key="product-{{ $product->id }}">
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $product->name }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {{ $product->default_unit_of_measure }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         &euro; {{ number_format($product->default_unit_price, 2, ',', '.') }}

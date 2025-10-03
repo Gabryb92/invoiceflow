@@ -295,6 +295,7 @@ class InvoiceForm extends Component
             $this->invoiceItems[] = [
                 "product_id" => $product->id,
                 'description' => $product->name ?? '',
+                "unit_of_measure" => $product->default_unit_of_measure ?? '',
                 'quantity' => 1,
                 'unit_price' => $product->default_unit_price ?? 0.00,
                 'vat_rate' => $product->default_vat_rate ?? 22.00,

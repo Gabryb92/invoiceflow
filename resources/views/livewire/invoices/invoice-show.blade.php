@@ -98,6 +98,7 @@
                                     <thead class="bg-gray-50 dark:bg-gray-700/50">
                                         <tr>
                                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pl-2">{{__('Description')}}</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300 sm:pl-2">{{__('U/M')}}</th>
                                             <th scope="col" class="px-3 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Quantity')}}</th>
                                             <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Unit Price')}}</th>
                                             <th scope="col" class="px-3 py-3.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{__('Vat')}} (&percnt;)</th>
@@ -110,6 +111,9 @@
                                         <tr>
                                             <td class="py-4 pl-4 pr-3 text-sm sm:pl-0">
                                                 <p class="font-medium text-gray-900 dark:text-gray-100">{{ $item->description }}</p>
+                                            </td>
+                                            <td class="py-4 pl-4 pr-3 text-sm sm:pl-0">
+                                                {{ $item->unit_of_measure }}
                                             </td>
                                             <td class="px-3 py-4 text-sm text-center text-gray-500 dark:text-gray-400">{{ $item->quantity }}</td>
                                             <td class="px-3 py-4 text-sm text-right text-gray-500 dark:text-gray-400">€ {{ number_format($item->unit_price, 2, ',', '.') }}</td>

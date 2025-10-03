@@ -19,12 +19,15 @@ class ProductForm extends Component
 
     public $default_unit_price;
 
+    public $default_unit_of_measure= '';
+
 
     public function mount(Product $product){
         $this->product = $product;
 
         if($this->product->exists){
             $this->name = $product->name;
+            $this->default_unit_of_measure = $product->default_unit_of_measure;
             $this->description = $product->description;
             $this->default_vat_rate = $product->default_vat_rate;
             $this->default_unit_price = $product->default_unit_price;
@@ -37,7 +40,8 @@ class ProductForm extends Component
         return [
             "name" => "required|unique:products,name," . $product_id,
             "default_vat_rate" => "required|numeric|min:0",
-            "default_unit_price" => "required|numeric|min:0"
+            "default_unit_price" => "required|numeric|min:0",
+            "default_unit_of_measure" => "nullable|string|max:100" 
         ];
     }
 
