@@ -64,13 +64,17 @@
                                     <div class="text-right">
                                         <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">€ {{ number_format($invoice->total, 2, ',', '.') }}</p>
                                         {{-- Logica per lo stato --}}
-                                        @if($invoice->status === 'paid')
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Pagata</span>
-                                        @elseif($invoice->status === 'partially_paid')
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Parz. Pagata</span>
-                                        @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">Non Pagata</span>
-                                        @endif
+                                        
+                                        @php
+                                            $status = $invoice->status;
+                                            $statusClass = '';
+                                            if (in_array($status, ['paid', 'accepted'])) $statusClass = 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+                                            elseif (in_array($status, ['unpaid', 'rejected'])) $statusClass = 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+                                            elseif (in_array($status, ['partially_paid', 'sent'])) $statusClass = 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+                                            else $statusClass = 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'; // Per 'draft', 'cancelled'
+                                        @endphp
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusClass }}">{{ __(ucfirst(str_replace('_',' ',$status))) }}</span>
+                    
                                     </div>
                                 </li>
                             @empty

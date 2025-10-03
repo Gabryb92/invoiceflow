@@ -38,8 +38,8 @@
         <div class="flex justify-end sm:items-center flex-row space-x-4">
             
             <select wire:model.live="filterType" class="block  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                <option value="invoice">{{__('Fatture')}}</option>
-                <option value="quote">{{__('Preventivi')}}</option>
+                <option value="invoice">{{__('Invoices')}}</option>
+                <option value="quote">{{__('Quotes')}}</option>
             </select>
 
             <a href="{{$filterType === 'invoice' ? route('fatture.create') : route('preventivi.create') }}" class="grow flex flex-row justify-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">
@@ -140,9 +140,9 @@
                         <td colspan="7" class="px-6 py-4 text-center text-gray-500">
                             {{-- MESSAGGIO "NON TROVATO" DINAMICO --}}
                             @if($filterType === 'invoice')
-                                Nessuna fattura trovata
+                                 {{ __("No Invoices found") }}
                             @else
-                                Nessun preventivo trovato
+                                 {{ __("No Quotes found") }}
                             @endif
                         </td>
                 </tr>

@@ -1,5 +1,9 @@
 <div>
 
+    @php
+        $confirmMessage = __('Are you sure you want to convert this quote to an invoice? This action is irreversible.');
+    @endphp
+
     @if($invoice->exists)
         <x-slot name="header">
             <div class="flex ml-auto justify-between">
@@ -27,7 +31,7 @@
                     <x-alert />
 
                     <form wire:submit.prevent="save" class="grid grid-cols-1 sm:grid-cols-2">
-                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{$type === 'invoice' ?__('Invoice Dates') : _('Quote Dates')}}  {{$invoice->exists ? "- " . $this->invoice_number : ""}}</h2>
+                        <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{$type === 'invoice' ?__('Invoice Dates') : __('Quote Dates')}}  {{$invoice->exists ? "- " . $this->invoice_number : ""}}</h2>
                         
 
                         <div class="grid gap-4 sm:grid-cols-4 sm:gap-4 sm:col-span-2">
@@ -35,7 +39,7 @@
 
                             
                             <div class="sm:col-span-2">
-                                <label for="client" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Cliente') }}</label>
+                                <label for="client" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Client') }}</label>
                                 <select wire:model="client_id" id="client" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option selected="">{{ __('Select Client') }}</option>
                                     @foreach ($clients as $client)
@@ -95,7 +99,7 @@
 
 
                         <h3 class="sm:col-span-2 text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-                            Voci Fattura
+                            {{ __('Invoice Items') }}
                         </h3>
 
                         @error('invoiceItems')
@@ -127,9 +131,6 @@
                                             </th>
                                             <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
                                                 {{ __('Subtotal') }}
-                                            </th>
-                                            <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
-                                                {{ __('') }}
                                             </th>
                                         </tr>
                                     </thead>
@@ -272,8 +273,8 @@
                             <div class="sm:col-span-2 mt-4 flex justify-end">
                                 <div>
                                     @if($invoice->exists && $type === 'quote')
-                                        <x-success-button type="button" wire:click="convertToInvoice" wire:confirm="Sei sicuro di voler convertire questo preventivo in una fattura? L'azione è irreversibile." >
-                                            {{ __('Converti in Fattura') }}
+                                        <x-success-button type="button" wire:click="convertToInvoice" wire:confirm="{{ $confirmMessage }}" >
+                                            {{ __('Convert To Invoice') }}
                                         </x-success-button>
                                     @endif
                                 </div>

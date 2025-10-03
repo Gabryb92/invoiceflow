@@ -22,7 +22,7 @@
                 {{-- Intestazione della modale --}}
                 <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                        Registra un Nuovo Pagamento
+                        {{ __("Record a New Payment") }}
                     </h3>
                     <button wire:click="closeModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -32,25 +32,25 @@
                 {{-- Corpo del form --}}
                 <form wire:submit.prevent="savePayment" class="mt-6 space-y-6">
                     <div>
-                        <label for="amount_paid" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Importo Pagato (€)</label>
+                        <label for="amount_paid" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Amount Paid') }} (€)</label>
                         <input type="text" inputmode="decimal" id="amount_paid" wire:model="amount_paid" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 no-spinner" placeholder="0.00">
                         @error('amount_paid') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label for="payment_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Data Pagamento</label>
+                        <label for="payment_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{__('Payment Date')}}</label>
                         <input type="date" id="payment_date" wire:model="payment_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         @error('payment_date') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
-                        <label for="payment_method" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Metodo</label>
+                        <label for="payment_method" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{__("Method")}}</label>
                         <select id="payment_method" wire:model="payment_method" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="">Seleziona un metodo</option>
-                            <option value="Bonifico">Bonifico</option>
-                            <option value="Carta di Credito">Carta di Credito</option>
+                            <option value="">{{__('Select a payment method')}}</option>
+                            <option value="Bonifico">{{__("Bank Transfer")}}</option>
+                            <option value="Carta di Credito">{{__("Credit Card")}}</option>
                             <option value="PayPal">PayPal</option>
-                            <option value="Contanti">Contanti</option>
+                            <option value="Contanti">{{__("Cash")}}</option>
                         </select>
                          @error('payment_method') <span class="text-red-500 text-sm mt-1">{{ $message }}</span> @enderror
                     </div>
@@ -64,10 +64,10 @@
                     {{-- Pulsanti di azione --}}
                     <div class="flex justify-end pt-4 space-x-4">
                         <button type="button" wire:click="closeModal" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-600 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-500">
-                            Annulla
+                            {{ __("Cancel") }}
                         </button>
                         <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Salva Pagamento
+                            {{ __("Save Payment") }}
                         </button>
                     </div>
                 </form>

@@ -54,11 +54,11 @@
                     {{ __('U/M') }}
                 </th>
                 <th class="text-[14px]  px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
-                    {{ __('Prezzo di Default') }}
+                    {{ __('Default Unit Price') }}
                 </th>
                 
                 <th class="text-[14px] px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider">
-                    {{ __('Iva di Default') }}
+                    {{ __('Default Vat Rate') }}
                 </th>
                 <th class="text-[14px] px-6 py-3 text-center text-xs font-medium  uppercase tracking-wider">
                     {{ __('Actions') }}

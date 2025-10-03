@@ -2,7 +2,7 @@
     <x-slot name="header" class="">
         <div class="flex ml-auto justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Dettagli Cliente') }}
+                {{ __('Client Detail') }}
             </h2>
         </div>
     </x-slot>
@@ -16,8 +16,8 @@
             <div class="px-4 py-5 sm:p-6">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-200">Dettaglio Cliente</h2>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Informazioni anagrafiche e di contatto.</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-200">{{ __('Client Detail') }}</h2>
+                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400"></p>
                     </div>
                     <a href="{{ route('clienti.edit',compact('client')) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
                         {{ __('Edit') }}
@@ -71,7 +71,7 @@
                         <div class="sm:col-span-3"> {{-- Occupa tutta la larghezza --}}
                             <dt class="text-sm font-medium text-gray-500 dark:text-gray-100">{{__('Notes')}}</dt>
                             <dd class="mt-1 text-base text-gray-900 dark:text-gray-400">
-                                {{ $client->notes ?? 'Nessuna nota.' }}
+                                {{ $client->notes ??  __('No Notes') }}
                             </dd>
                         </div>
                     </dl>
@@ -84,11 +84,11 @@
             <div class="px-4 py-5 sm:p-6">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-200">Fatture</h2>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Elenco di tutte le fatture associate al cliente.</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-200">{{__('Invoices')}}</h2>
+                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{__("Customer's invoice list")}}</p>
                     </div>
                      <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
-                        Aggiungi Fattura
+                        {{__('Add Invoice')}}
                     </a>
                 </div>
 
@@ -99,12 +99,12 @@
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead class="bg-gray-50 dark:bg-gray-800">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider ">Numero</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Emissione</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Scadenza</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Importo</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Stato</th>
-                                            <th scope="col" class="relative px-6 py-3"><span class="sr-only">Azioni</span></th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider ">{{__('Number')}}</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{__('Emission')}}</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{__('Expiration')}}</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{__('Amount')}}</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{__('Status')}}</th>
+                                            <th scope="col" class="relative px-6 py-3"><span class="sr-only">{{__('Actions')}}</span></th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
