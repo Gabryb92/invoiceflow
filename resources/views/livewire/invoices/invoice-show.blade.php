@@ -113,7 +113,7 @@
                                                 <p class="font-medium text-gray-900 dark:text-gray-100">{{ $item->description }}</p>
                                             </td>
                                             <td class="py-4 pl-4 pr-3 text-sm sm:pl-0">
-                                                {{ $item->unit_of_measure }}
+                                                <p class="font-medium text-gray-900 dark:text-gray-100">{{ $item->unit_of_measure }}</p>
                                             </td>
                                             <td class="px-3 py-4 text-sm text-center text-gray-500 dark:text-gray-400">{{ $item->quantity }}</td>
                                             <td class="px-3 py-4 text-sm text-right text-gray-500 dark:text-gray-400">€ {{ number_format($item->unit_price, 2, ',', '.') }}</td>
