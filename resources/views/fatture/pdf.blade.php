@@ -170,16 +170,15 @@
     .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
     .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
         
-    /* --- INIZIO BLOCCO MODIFICATO --- */
 
     /* 1. RIDISTRIBUZIONE LARGHEZZE PIÙ BILANCIATA */
-    .items-table th:nth-child(1) { width: 35%; }  /* Descrizione (+7%) */
-    .items-table th:nth-child(2) { width: 8%; }   /* U/M (-2%) */
-    .items-table th:nth-child(3) { width: 7%; }   /* Quantità (-1%) */
-    .items-table th:nth-child(4) { width: 13%; }  /* Prezzo Unitario (-1%) */
-    .items-table th:nth-child(5) { width: 8%; }   /* IVA (-2%) */
-    .items-table th:nth-child(6) { width: 14%; }  /* Totale (-1%) */
-    .items-table th:nth-child(7) { width: 15%; }  /* Totale(IVA) (invariato) */
+    .items-table th:nth-child(1) { width: 35%; }  /* Descrizione */
+    .items-table th:nth-child(2) { width: 9%; }   /* U/M  */
+    .items-table th:nth-child(3) { width: 8%; }   /* Quantità  */
+    .items-table th:nth-child(4) { width: 14%; }  /* Prezzo Unitario */
+    .items-table th:nth-child(5) { width: 8%; }   /* IVA */
+    .items-table th:nth-child(6) { width: 12%; }  /* Totale */
+    .items-table th:nth-child(7) { width: 13%; }  /* Totale(IVA) */
 
     /* 2. GESTIONE SELETTIVA DEL "A CAPO" */
     
