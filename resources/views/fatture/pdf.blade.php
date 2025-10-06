@@ -146,13 +146,11 @@
     .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
     .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
     
-    /* --- MODIFICA FONDAMENTALE QUI --- */
     .items-table { 
         width: 100%; 
         border-collapse: collapse; 
         margin-bottom: 20px; 
-        table-layout: fixed; /* Forza la tabella a rispettare le larghezze definite */
-        word-wrap: break-word; /* Sicurezza per far andare a capo le parole lunghe nella descrizione */
+        table-layout: fixed;
     }
     
     .header-left, .header-right { display: table-cell; vertical-align: middle; }
@@ -172,21 +170,32 @@
     .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
     .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
         
-    /* Regola per la larghezza delle colonne (inutile senza table-layout: fixed) */
-    .items-table th:nth-child(1) { width: 34%; } /* Descrizione */
-    .items-table th:nth-child(2) { width: 6%; }  /* U/M */
-    .items-table th:nth-child(3) { width: 9%; }  /* Quantità */
-    .items-table th:nth-child(4) { width: 13%; } /* Prezzo Unitario */
-    .items-table th:nth-child(5) { width: 9%; }  /* IVA */
-    .items-table th:nth-child(6) { width: 14%; } /* Totale */
-    .items-table th:nth-child(7) { width: 15%; } /* Totale(IVA) */
+    /* --- INIZIO BLOCCO MODIFICATO --- */
 
-    /* Regola per l'allineamento e per evitare il ritorno a capo */
+    /* 1. RIDISTRIBUZIONE LARGHEZZE PIÙ BILANCIATA */
+    .items-table th:nth-child(1) { width: 28%; }  /* Descrizione (-6%) */
+    .items-table th:nth-child(2) { width: 10%; }  /* U/M (+4%) */
+    .items-table th:nth-child(3) { width: 8%; }   /* Quantità (-1%) */
+    .items-table th:nth-child(4) { width: 14%; }  /* Prezzo Unitario (+1%) */
+    .items-table th:nth-child(5) { width: 10%; }  /* IVA (+1%) */
+    .items-table th:nth-child(6) { width: 15%; }  /* Totale (+1%) */
+    .items-table th:nth-child(7) { width: 15%; }  /* Totale(IVA) (invariato) */
+
+    /* 2. GESTIONE SELETTIVA DEL "A CAPO" */
+    
+    /* Permette alla descrizione di andare a capo se il testo è troppo lungo */
+    .items-table td:first-child {
+        word-wrap: break-word; /* Per browser meno recenti */
+        overflow-wrap: break-word; /* Standard moderno */
+    }
+
+    /* Forza le altre colonne a rimanere su una sola riga */
     .items-table th:not(:first-child),
     .items-table td:not(:first-child) {
         text-align: right;
         white-space: nowrap;
     }
+    /* --- FINE BLOCCO MODIFICATO --- */
 
     .item-description strong { font-weight: 500; }
 
