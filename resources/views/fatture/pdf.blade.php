@@ -62,6 +62,12 @@
 
     .item-description strong { font-weight: 500; }
 
+    .items-table th:not(:first-child),
+    .items-table td:not(:first-child) {
+        white-space: nowrap; /* Impedisce al testo di andare a capo */
+        width: 1%;           /* Aiuta la tabella a distribuire bene lo spazio */
+    }
+
     /* NUOVA SEZIONE PER LE NOTE */
     .notes-section {
         margin-top: 20px;
