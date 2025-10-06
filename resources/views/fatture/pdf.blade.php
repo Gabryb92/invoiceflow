@@ -173,12 +173,12 @@
     /* --- INIZIO BLOCCO MODIFICATO --- */
 
     /* 1. RIDISTRIBUZIONE LARGHEZZE PIÙ BILANCIATA */
-    .items-table th:nth-child(1) { width: 28%; }  /* Descrizione (-6%) */
-    .items-table th:nth-child(2) { width: 10%; }  /* U/M (+4%) */
-    .items-table th:nth-child(3) { width: 8%; }   /* Quantità (-1%) */
-    .items-table th:nth-child(4) { width: 14%; }  /* Prezzo Unitario (+1%) */
-    .items-table th:nth-child(5) { width: 10%; }  /* IVA (+1%) */
-    .items-table th:nth-child(6) { width: 15%; }  /* Totale (+1%) */
+    .items-table th:nth-child(1) { width: 35%; }  /* Descrizione (+7%) */
+    .items-table th:nth-child(2) { width: 8%; }   /* U/M (-2%) */
+    .items-table th:nth-child(3) { width: 7%; }   /* Quantità (-1%) */
+    .items-table th:nth-child(4) { width: 13%; }  /* Prezzo Unitario (-1%) */
+    .items-table th:nth-child(5) { width: 8%; }   /* IVA (-2%) */
+    .items-table th:nth-child(6) { width: 14%; }  /* Totale (-1%) */
     .items-table th:nth-child(7) { width: 15%; }  /* Totale(IVA) (invariato) */
 
     /* 2. GESTIONE SELETTIVA DEL "A CAPO" */
