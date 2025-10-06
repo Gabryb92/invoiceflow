@@ -55,18 +55,25 @@
     .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
     .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
         
-    .items-table th:nth-child(2), .items-table td:nth-child(2),
-    .items-table th:nth-child(3), .items-table td:nth-child(3),
-    .items-table th:nth-child(4), .items-table td:nth-child(4),
-    .items-table th:nth-child(5), .items-table td:nth-child(5) { text-align: right; }
+    /* Regola per la larghezza delle colonne */
+    .items-table th:nth-child(1) { width: 34%; } /* Descrizione */
+    .items-table th:nth-child(2) { width: 6%; }  /* U/M */
+    .items-table th:nth-child(3) { width: 9%; }  /* Quantità */
+    .items-table th:nth-child(4) { width: 13%; } /* Prezzo Unitario */
+    .items-table th:nth-child(5) { width: 9%; }  /* IVA */
+    .items-table th:nth-child(6) { width: 14%; } /* Totale */
+    .items-table th:nth-child(7) { width: 15%; } /* Totale(IVA) */
+
+    /* Regola per l'allineamento e per evitare il ritorno a capo */
+    .items-table th:not(:first-child),
+    .items-table td:not(:first-child) {
+        text-align: right;
+        white-space: nowrap; /* Proprietà chiave per impedire il ritorno a capo */
+    }
 
     .item-description strong { font-weight: 500; }
 
-    .items-table th:not(:first-child),
-    .items-table td:not(:first-child) {
-        white-space: nowrap; /* Impedisce al testo di andare a capo */
-        width: 1%;           /* Aiuta la tabella a distribuire bene lo spazio */
-    }
+    
 
     /* NUOVA SEZIONE PER LE NOTE */
     .notes-section {
