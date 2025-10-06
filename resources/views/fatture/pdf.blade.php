@@ -116,162 +116,117 @@
 </style> --}}
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
-:root {
-    --font-family: 'Inter', sans-serif;
-    --font-color-dark: #1a202c;
-    --font-color-light: #718096;
-    --primary-color: #3675dd;
-    --background-light: #f7fafc;
-    --border-color: #e2e8f0;
-}
+    :root {
+        --font-family: 'Inter', sans-serif;
+        --font-color-dark: #1a202c;
+        --font-color-light: #718096;
+        --primary-color: #3675dd;
+        --background-light: #f7fafc;
+        --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: var(--font-family);
+        font-size: 9.5pt;
+        color: var(--font-color-dark);
+        background-color: #fff;
+        line-height: 1.5;
+        padding: 1cm 1cm 2cm 1cm;
+    }
+    
+    .invoice-container { width: 100%; margin: 0 auto; }
 
-body {
-    font-family: var(--font-family);
-    font-size: 9.5pt;
-    color: var(--font-color-dark);
-    background-color: #fff;
-    line-height: 1.5;
-    padding: 1cm 1cm 2cm 1cm;
-}
+    .text-right{ text-align: right; }
 
-.invoice-container { width: 100%; margin: 0 auto; }
-.text-right { text-align: right; }
+    .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
+    .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
+    
+    .items-table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-bottom: 20px; 
+        table-layout: fixed; /* Obbligatorio per questa tecnica */
+    }
+    
+    .header-left, .header-right { display: table-cell; vertical-align: middle; }
+    .header-left { width: 60%; }
+    .header-right { width: 40%; text-align: right; }
+    .logo { width: 45px; height: auto; margin-right: 15px; vertical-align: middle; }
+    .company-name { font-size: 15pt; font-weight: 700; display: inline-block; vertical-align: middle; }
+    .document-title { font-size: 18pt; font-weight: 700; color: var(--primary-color); margin: 0; }
+    .document-details p { margin: 2px 0 0 0; font-size: 9.5pt; color: var(--font-color-light); }
 
-/* Header e meta */
-.invoice-header { display: table; width: 100%; margin-bottom: 25px; }
-.invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
+    .meta-block { display: table-cell; vertical-align: top; width: 50%; }
+    .meta-heading { font-size: 8pt; font-weight: 500; color: var(--font-color-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .meta-content { font-size: 9.5pt; line-height: 1.4; }
+    .meta-content strong { font-weight: 500; }
+    .meta-block.client-info { padding-left: 30px; text-align: right; }
 
-.header-left, .header-right { display: table-cell; vertical-align: middle; }
-.header-left { width: 60%; }
-.header-right { width: 40%; text-align: right; }
+    .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
+    .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        
+    /* --- INIZIO NUOVA SOLUZIONE STABILE --- */
 
-.logo { width: 45px; height: auto; margin-right: 15px; vertical-align: middle; }
-.company-name { font-size: 15pt; font-weight: 700; display: inline-block; vertical-align: middle; }
-.document-title { font-size: 18pt; font-weight: 700; color: var(--primary-color); margin: 0; }
-.document-details p { margin: 2px 0 0 0; font-size: 9.5pt; color: var(--font-color-light); }
+    /* 1. La colonna descrizione è flessibile (NESSUNA LARGHEZZA IMPOSTATA) e può andare a capo */
+    .items-table td:first-child {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 
-.meta-block { display: table-cell; vertical-align: top; width: 50%; }
-.meta-heading { font-size: 8pt; font-weight: 500; color: var(--font-color-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-.meta-content { font-size: 9.5pt; line-height: 1.4; }
-.meta-content strong { font-weight: 500; }
-.meta-block.client-info { padding-left: 30px; text-align: right; }
+    /* 2. Impostiamo larghezze fisse in 'em' per le altre colonne, basate sul contenuto */
+    .items-table th:nth-child(2), .items-table td:nth-child(2) { width: 6em; }  /* U/M */
+    .items-table th:nth-child(3), .items-table td:nth-child(3) { width: 7em; }  /* Quantità */
+    .items-table th:nth-child(4), .items-table td:nth-child(4) { width: 11em; } /* Prezzo Unitario */
+    .items-table th:nth-child(5), .items-table td:nth-child(5) { width: 6em; }  /* IVA */
+    .items-table th:nth-child(6), .items-table td:nth-child(6) { width: 9em; }  /* Totale */
+    .items-table th:nth-child(7), .items-table td:nth-child(7) { width: 9em; }  /* Totale(IVA) */
 
-/* Tabella articoli */
-.items-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    table-layout: fixed; /* griglia a larghezze fisse */
-}
+    /* 3. Forziamo le colonne (tranne la prima) a non andare a capo */
+    .items-table th:not(:first-child),
+    .items-table td:not(:first-child) {
+        text-align: right;
+        white-space: nowrap;
+    }
+    /* --- FINE NUOVA SOLUZIONE STABILE --- */
 
-.items-table th {
-    text-align: left;
-    padding: 8px 10px;
-    background-color: var(--background-light);
-    color: var(--font-color-light);
-    font-size: 8.3pt;              /* leggermente più piccolo */
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--border-color);
-    white-space: normal;            /* <-- CONSENTE A CAPO NEI TITOLI */
-    overflow-wrap: anywhere;        /* evita sovrapposizioni */
-}
-.items-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid var(--border-color);
-    vertical-align: top;
-}
+    .notes-section {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 9pt;
+        color: var(--font-color-light);
+        page-break-inside: avoid !important;
+    }
+    .notes-section h4 {
+        line-height: 1 !important;
+        margin-bottom: 0px !important ;
+        color: var(--font-color-dark);
+        font-size: 9.5pt;
+    }
+    .notes-section .notes-content {
+        white-space: pre-wrap;
+        margin-top: 0 !important;
+    }
 
-/* Larghezze colonne (somma ~100%) */
-.items-table th:nth-child(1), .items-table td:nth-child(1) { width: 40%; } /* Descrizione */
-.items-table th:nth-child(2), .items-table td:nth-child(2) { width: 10%; } /* U/M */
-.items-table th:nth-child(3), .items-table td:nth-child(3) { width: 9%;  } /* Quantità */
-.items-table th:nth-child(4), .items-table td:nth-child(4) { width: 16%; } /* Prezzo unitario */
-.items-table th:nth-child(5), .items-table td:nth-child(5) { width: 7%;  } /* IVA */
-.items-table th:nth-child(6), .items-table td:nth-child(6) { width: 9%;  } /* Totale */
-.items-table th:nth-child(7), .items-table td:nth-child(7) { width: 9%;  } /* Totale(IVA) */
+    .invoice-summary { width: 45%; margin-left: auto; }
+    .summary-table { width: 100%; border-collapse: collapse; }
+    .summary-table th, .summary-table td { padding: 8px 10px; text-align: right; }
+    .summary-table th { text-align: left; font-weight: 500; color: var(--font-color-light); }
+    .summary-total { border-top: 2px solid var(--border-color); }
+    .summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; }
 
-/* Descrizione: può andare a capo solo qui */
-.items-table td:nth-child(1) {
-    white-space: normal;
-    word-break: break-word;
-}
-
-/* U/M: non spezzare, resta al centro */
-.items-table th:nth-child(2),
-.items-table td:nth-child(2) {
-    white-space: nowrap;
-    text-align: center;
-}
-
-/* Colonne numeriche (celle): no a capo, allineate a destra */
-.items-table td:nth-child(3),
-.items-table td:nth-child(4),
-.items-table td:nth-child(5),
-.items-table td:nth-child(6),
-.items-table td:nth-child(7) {
-    text-align: right;
-    white-space: nowrap;  /* i numeri restano su una riga */
-    word-break: keep-all;
-}
-
-/* Intestazioni delle colonne numeriche: possono andare a capo */
-.items-table th:nth-child(3),
-.items-table th:nth-child(4),
-.items-table th:nth-child(5),
-.items-table th:nth-child(6),
-.items-table th:nth-child(7) {
-    text-align: right;    /* allineamento visivo */
-    white-space: normal;  /* consenti a capo nei titoli */
-    overflow-wrap: anywhere;
-}
-
-.item-description strong { font-weight: 500; }
-
-/* Note */
-.notes-section {
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-size: 9pt;
-    color: var(--font-color-light);
-    page-break-inside: avoid !important;
-}
-.notes-section h4 {
-    line-height: 1 !important;
-    margin-bottom: 0 !important;
-    color: var(--font-color-dark);
-    font-size: 9.5pt;
-}
-.notes-section .notes-content {
-    white-space: pre-wrap;
-    margin-top: 0 !important;
-}
-
-/* Riepilogo */
-.invoice-summary { width: 45%; margin-left: auto; }
-.summary-table { width: 100%; border-collapse: collapse; }
-.summary-table th, .summary-table td { padding: 8px 10px; text-align: right; }
-.summary-table th { text-align: left; font-weight: 500; color: var(--font-color-light); }
-.summary-total { border-top: 2px solid var(--border-color); }
-.summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; }
-
-/* Footer */
-.invoice-footer {
-    position: fixed;
-    bottom: 0;
-    left: 1cm;
-    right: 1cm;
-    text-align: center;
-    font-size: 8pt;
-    color: var(--font-color-light);
-    padding-bottom: 0.5cm;
-}
-
+    .invoice-footer {
+        position: fixed;
+        bottom: 0;
+        left: 1cm;
+        right: 1cm;
+        text-align: center;
+        font-size: 8pt;
+        color: var(--font-color-light);
+        padding-bottom: 0.5cm;
+    }
 </style>
 </head>
 <body>
