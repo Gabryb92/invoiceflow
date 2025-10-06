@@ -172,13 +172,13 @@
         
 
     /* 1. RIDISTRIBUZIONE LARGHEZZE PIÙ BILANCIATA */
-    .items-table th:nth-child(1) { width: 35%; }  /* Descrizione */
-    .items-table th:nth-child(2) { width: 9%; }   /* U/M  */
-    .items-table th:nth-child(3) { width: 8%; }   /* Quantità  */
-    .items-table th:nth-child(4) { width: 14%; }  /* Prezzo Unitario */
-    .items-table th:nth-child(5) { width: 8%; }   /* IVA */
-    .items-table th:nth-child(6) { width: 12%; }  /* Totale */
-    .items-table th:nth-child(7) { width: 13%; }  /* Totale(IVA) */
+    .items-table th:nth-child(1) { width: 32%; }  /* Descrizione */
+    .items-table th:nth-child(2) { width: 9%; }   /* U/M (invariato) */
+    .items-table th:nth-child(3) { width: 10%; }  /* Quantità  */
+    .items-table th:nth-child(4) { width: 18%; }  /* Prezzo Unitario  */
+    .items-table th:nth-child(5) { width: 8%; }   /* IVA  */
+    .items-table th:nth-child(6) { width: 11%; }  /* Totale */
+    .items-table th:nth-child(7) { width: 12%; }  /* Totale(IVA) */
 
     /* 2. GESTIONE SELETTIVA DEL "A CAPO" */
     
