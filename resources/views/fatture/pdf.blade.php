@@ -139,18 +139,17 @@
     
     .invoice-container { width: 100%; margin: 0 auto; }
 
-    .text-right{
-        text-align: right;
-    }
+    .text-right{ text-align: right; }
 
     .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
     .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
     
+    /* --- NUOVA IMPOSTAZIONE DELLA TABELLA --- */
     .items-table { 
         width: 100%; 
         border-collapse: collapse; 
         margin-bottom: 20px; 
-        table-layout: fixed;
+        /* RIMOSSO: table-layout: fixed; */
     }
     
     .header-left, .header-right { display: table-cell; vertical-align: middle; }
@@ -170,33 +169,25 @@
     .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
     .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
         
+    /* --- INIZIO BLOCCO SEMPLIFICATO --- */
 
-    /* 1. RIDISTRIBUZIONE LARGHEZZE PIÙ BILANCIATA */
-    .items-table th:nth-child(1) { width: 32%; }  /* Descrizione */
-    .items-table th:nth-child(2) { width: 9%; }   /* U/M (invariato) */
-    .items-table th:nth-child(3) { width: 10%; }  /* Quantità  */
-    .items-table th:nth-child(4) { width: 18%; }  /* Prezzo Unitario  */
-    .items-table th:nth-child(5) { width: 8%; }   /* IVA  */
-    .items-table th:nth-child(6) { width: 11%; }  /* Totale */
-    .items-table th:nth-child(7) { width: 12%; }  /* Totale(IVA) */
+    /* 1. RIMOSSE TUTTE LE LARGHEZZE IN PERCENTUALE */
 
-    /* 2. GESTIONE SELETTIVA DEL "A CAPO" */
-    
-    /* Permette alla descrizione di andare a capo se il testo è troppo lungo */
+    /* 2. La colonna descrizione prende tutto lo spazio possibile */
+    .items-table th:first-child,
     .items-table td:first-child {
-        word-wrap: break-word; /* Per browser meno recenti */
-        overflow-wrap: break-word; /* Standard moderno */
+        width: 100%; /* Occupa tutto lo spazio rimanente */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
-    /* Forza le altre colonne a rimanere su una sola riga */
+    /* 3. Le altre colonne NON VANNO A CAPO e si prendono lo spazio necessario */
     .items-table th:not(:first-child),
     .items-table td:not(:first-child) {
         text-align: right;
-        white-space: nowrap;
+        white-space: nowrap; /* REGOLA CHIAVE: impedisce di andare a capo */
     }
-    /* --- FINE BLOCCO MODIFICATO --- */
-
-    .item-description strong { font-weight: 500; }
+    /* --- FINE BLOCCO SEMPLIFICATO --- */
 
     .notes-section {
         margin-top: 20px;
