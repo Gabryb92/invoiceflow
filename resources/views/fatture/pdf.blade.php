@@ -131,54 +131,55 @@
 
 body {
     font-family: var(--font-family);
-    font-size: 9.5pt; /* RIDOTTO LEGGERMENTE */
+    font-size: 9.5pt;
     color: var(--font-color-dark);
     background-color: #fff;
-    line-height: 1.5; /* RIDOTTO */
-    padding: 1cm 1cm 2cm 1cm; /* RIDOTTO */
+    line-height: 1.5;
+    padding: 1cm 1cm 2cm 1cm;
 }
 
 .invoice-container { width: 100%; margin: 0 auto; }
 .text-right { text-align: right; }
 
-/* RIDOTTI MARGINI TRA LE SEZIONI */
+/* Header e meta */
 .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
 .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
-
-/* TAB. ARTICOLI: griglia con colonne fisse */
-.items-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-    margin-bottom: 20px; 
-    table-layout: fixed;           /* colonne fisse */
-}
 
 .header-left, .header-right { display: table-cell; vertical-align: middle; }
 .header-left { width: 60%; }
 .header-right { width: 40%; text-align: right; }
 
-.logo { width: 45px; height: auto; margin-right: 15px; vertical-align: middle; } /* RIDOTTO */
-.company-name { font-size: 15pt; font-weight: 700; display: inline-block; vertical-align: middle; } /* RIDOTTO */
-.document-title { font-size: 18pt; font-weight: 700; color: var(--primary-color); margin: 0; } /* RIDOTTO */
+.logo { width: 45px; height: auto; margin-right: 15px; vertical-align: middle; }
+.company-name { font-size: 15pt; font-weight: 700; display: inline-block; vertical-align: middle; }
+.document-title { font-size: 18pt; font-weight: 700; color: var(--primary-color); margin: 0; }
 .document-details p { margin: 2px 0 0 0; font-size: 9.5pt; color: var(--font-color-light); }
 
 .meta-block { display: table-cell; vertical-align: top; width: 50%; }
-.meta-heading { font-size: 8pt; font-weight: 500; color: var(--font-color-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; } /* RIDOTTO */
-.meta-content { font-size: 9.5pt; line-height: 1.4; } /* RIDOTTO */
+.meta-heading { font-size: 8pt; font-weight: 500; color: var(--font-color-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.meta-content { font-size: 9.5pt; line-height: 1.4; }
 .meta-content strong { font-weight: 500; }
 .meta-block.client-info { padding-left: 30px; text-align: right; }
 
-/* TABELLA ARTICOLI: celle */
+/* Tabella articoli */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed; /* griglia a larghezze fisse */
+}
+
 .items-table th {
     text-align: left;
     padding: 8px 10px;
     background-color: var(--background-light);
     color: var(--font-color-light);
-    font-size: 8.5pt;
+    font-size: 8.3pt;              /* leggermente più piccolo */
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-bottom: 1px solid var(--border-color);
+    white-space: normal;            /* <-- CONSENTE A CAPO NEI TITOLI */
+    overflow-wrap: anywhere;        /* evita sovrapposizioni */
 }
 .items-table td {
     padding: 8px 10px;
@@ -186,47 +187,53 @@ body {
     vertical-align: top;
 }
 
-/* LARGHEZZE COLONNE (somma ~100%) */
-.items-table th:nth-child(1), .items-table td:nth-child(1) { width: 42%; } /* Descrizione */
+/* Larghezze colonne (somma ~100%) */
+.items-table th:nth-child(1), .items-table td:nth-child(1) { width: 40%; } /* Descrizione */
 .items-table th:nth-child(2), .items-table td:nth-child(2) { width: 10%; } /* U/M */
-.items-table th:nth-child(3), .items-table td:nth-child(3) { width: 8%;  } /* Quantità */
-.items-table th:nth-child(4), .items-table td:nth-child(4) { width: 14%; } /* Prezzo unitario */
-.items-table th:nth-child(5), .items-table td:nth-child(5) { width: 8%;  } /* IVA */
+.items-table th:nth-child(3), .items-table td:nth-child(3) { width: 9%;  } /* Quantità */
+.items-table th:nth-child(4), .items-table td:nth-child(4) { width: 16%; } /* Prezzo unitario */
+.items-table th:nth-child(5), .items-table td:nth-child(5) { width: 7%;  } /* IVA */
 .items-table th:nth-child(6), .items-table td:nth-child(6) { width: 9%;  } /* Totale */
 .items-table th:nth-child(7), .items-table td:nth-child(7) { width: 9%;  } /* Totale(IVA) */
 
 /* Descrizione: può andare a capo solo qui */
 .items-table td:nth-child(1) {
     white-space: normal;
-    word-break: break-word;       /* impedisce che "invada" le altre colonne */
+    word-break: break-word;
 }
 
-/* U/M: non spezzare e tienila separata dalla descrizione */
+/* U/M: non spezzare, resta al centro */
 .items-table th:nth-child(2),
 .items-table td:nth-child(2) {
     white-space: nowrap;
-    text-align: center;           /* opzionale: centrato = più pulito */
+    text-align: center;
 }
 
-/* Colonne numeriche: allineate a destra, senza a capo */
-.items-table th:nth-child(3),
-.items-table th:nth-child(4),
-.items-table th:nth-child(5),
-.items-table th:nth-child(6),
-.items-table th:nth-child(7),
+/* Colonne numeriche (celle): no a capo, allineate a destra */
 .items-table td:nth-child(3),
 .items-table td:nth-child(4),
 .items-table td:nth-child(5),
 .items-table td:nth-child(6),
 .items-table td:nth-child(7) {
     text-align: right;
-    white-space: nowrap;
+    white-space: nowrap;  /* i numeri restano su una riga */
     word-break: keep-all;
+}
+
+/* Intestazioni delle colonne numeriche: possono andare a capo */
+.items-table th:nth-child(3),
+.items-table th:nth-child(4),
+.items-table th:nth-child(5),
+.items-table th:nth-child(6),
+.items-table th:nth-child(7) {
+    text-align: right;    /* allineamento visivo */
+    white-space: normal;  /* consenti a capo nei titoli */
+    overflow-wrap: anywhere;
 }
 
 .item-description strong { font-weight: 500; }
 
-/* NOTE */
+/* Note */
 .notes-section {
     margin-top: 20px;
     margin-bottom: 30px;
@@ -236,7 +243,7 @@ body {
 }
 .notes-section h4 {
     line-height: 1 !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
     color: var(--font-color-dark);
     font-size: 9.5pt;
 }
@@ -245,25 +252,26 @@ body {
     margin-top: 0 !important;
 }
 
-/* RIEPILOGO */
+/* Riepilogo */
 .invoice-summary { width: 45%; margin-left: auto; }
 .summary-table { width: 100%; border-collapse: collapse; }
-.summary-table th, .summary-table td { padding: 8px 10px; text-align: right; } /* RIDOTTO */
+.summary-table th, .summary-table td { padding: 8px 10px; text-align: right; }
 .summary-table th { text-align: left; font-weight: 500; color: var(--font-color-light); }
 .summary-total { border-top: 2px solid var(--border-color); }
-.summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; } /* RIDOTTO */
+.summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; }
 
-/* FOOTER */
+/* Footer */
 .invoice-footer {
     position: fixed;
-    bottom: 0; /* bordo inferiore pagina */
-    left: 1cm; 
-    right: 1cm; 
+    bottom: 0;
+    left: 1cm;
+    right: 1cm;
     text-align: center;
     font-size: 8pt;
     color: var(--font-color-light);
     padding-bottom: 0.5cm;
 }
+
 </style>
 </head>
 <body>
