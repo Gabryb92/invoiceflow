@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ $documentTitle }} {{ $invoice->invoice_number }}</title>
-    <style>
+    {{-- <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
     :root {
@@ -113,6 +113,118 @@
     color: var(--font-color-light);
     padding-bottom: 0.5cm; /* Aggiunge un po' d'aria dal fondo del foglio */
 }
+</style> --}}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+    :root {
+        --font-family: 'Inter', sans-serif;
+        --font-color-dark: #1a202c;
+        --font-color-light: #718096;
+        --primary-color: #3675dd;
+        --background-light: #f7fafc;
+        --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: var(--font-family);
+        font-size: 9.5pt;
+        color: var(--font-color-dark);
+        background-color: #fff;
+        line-height: 1.5;
+        padding: 1cm 1cm 2cm 1cm;
+    }
+    
+    .invoice-container { width: 100%; margin: 0 auto; }
+
+    .text-right{
+        text-align: right;
+    }
+
+    .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
+    .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
+    
+    /* --- MODIFICA FONDAMENTALE QUI --- */
+    .items-table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-bottom: 20px; 
+        table-layout: fixed; /* Forza la tabella a rispettare le larghezze definite */
+        word-wrap: break-word; /* Sicurezza per far andare a capo le parole lunghe nella descrizione */
+    }
+    
+    .header-left, .header-right { display: table-cell; vertical-align: middle; }
+    .header-left { width: 60%; }
+    .header-right { width: 40%; text-align: right; }
+    .logo { width: 45px; height: auto; margin-right: 15px; vertical-align: middle; }
+    .company-name { font-size: 15pt; font-weight: 700; display: inline-block; vertical-align: middle; }
+    .document-title { font-size: 18pt; font-weight: 700; color: var(--primary-color); margin: 0; }
+    .document-details p { margin: 2px 0 0 0; font-size: 9.5pt; color: var(--font-color-light); }
+
+    .meta-block { display: table-cell; vertical-align: top; width: 50%; }
+    .meta-heading { font-size: 8pt; font-weight: 500; color: var(--font-color-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .meta-content { font-size: 9.5pt; line-height: 1.4; }
+    .meta-content strong { font-weight: 500; }
+    .meta-block.client-info { padding-left: 30px; text-align: right; }
+
+    .items-table th { text-align: left; padding: 8px 10px; background-color: var(--background-light); color: var(--font-color-light); font-size: 8.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); }
+    .items-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        
+    /* Regola per la larghezza delle colonne (inutile senza table-layout: fixed) */
+    .items-table th:nth-child(1) { width: 34%; } /* Descrizione */
+    .items-table th:nth-child(2) { width: 6%; }  /* U/M */
+    .items-table th:nth-child(3) { width: 9%; }  /* Quantità */
+    .items-table th:nth-child(4) { width: 13%; } /* Prezzo Unitario */
+    .items-table th:nth-child(5) { width: 9%; }  /* IVA */
+    .items-table th:nth-child(6) { width: 14%; } /* Totale */
+    .items-table th:nth-child(7) { width: 15%; } /* Totale(IVA) */
+
+    /* Regola per l'allineamento e per evitare il ritorno a capo */
+    .items-table th:not(:first-child),
+    .items-table td:not(:first-child) {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .item-description strong { font-weight: 500; }
+
+    .notes-section {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 9pt;
+        color: var(--font-color-light);
+        page-break-inside: avoid !important;
+    }
+    .notes-section h4 {
+        line-height: 1 !important;
+        margin-bottom: 0px !important ;
+        color: var(--font-color-dark);
+        font-size: 9.5pt;
+    }
+    .notes-section .notes-content {
+        white-space: pre-wrap;
+        margin-top: 0 !important;
+    }
+
+    .invoice-summary { width: 45%; margin-left: auto; }
+    .summary-table { width: 100%; border-collapse: collapse; }
+    .summary-table th, .summary-table td { padding: 8px 10px; text-align: right; }
+    .summary-table th { text-align: left; font-weight: 500; color: var(--font-color-light); }
+    .summary-total { border-top: 2px solid var(--border-color); }
+    .summary-total th, .summary-total td { font-size: 13pt; font-weight: 700; color: var(--primary-color); padding-top: 10px; }
+
+    .invoice-footer {
+        position: fixed;
+        bottom: 0;
+        left: 1cm;
+        right: 1cm;
+        text-align: center;
+        font-size: 8pt;
+        color: var(--font-color-light);
+        padding-bottom: 0.5cm;
+    }
 </style>
 </head>
 <body>
