@@ -98,7 +98,7 @@
         margin-top: 20px;
         margin-bottom: 30px;
         font-size: 9pt;
-        color: var(--font-color-light);
+        color: var(--font-color-dark);
         page-break-inside: avoid !important;
     }
     .notes-section h4 {
