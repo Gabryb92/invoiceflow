@@ -116,7 +116,7 @@
 </style> --}}
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 :root {
     --font-family: 'Inter', sans-serif;
@@ -139,13 +139,19 @@ body {
 }
 
 .invoice-container { width: 100%; margin: 0 auto; }
-
 .text-right { text-align: right; }
 
 /* RIDOTTI MARGINI TRA LE SEZIONI */
 .invoice-header { display: table; width: 100%; margin-bottom: 25px; }
 .invoice-meta { display: table; width: 100%; margin-bottom: 25px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 15px 0; }
-.items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: auto; }
+
+/* TAB. ARTICOLI: griglia con colonne fisse */
+.items-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-bottom: 20px; 
+    table-layout: fixed;           /* colonne fisse */
+}
 
 .header-left, .header-right { display: table-cell; vertical-align: middle; }
 .header-left { width: 60%; }
@@ -162,7 +168,7 @@ body {
 .meta-content strong { font-weight: 500; }
 .meta-block.client-info { padding-left: 30px; text-align: right; }
 
-/* TABELLA ARTICOLI */
+/* TABELLA ARTICOLI: celle */
 .items-table th {
     text-align: left;
     padding: 8px 10px;
@@ -174,30 +180,45 @@ body {
     letter-spacing: 0.5px;
     border-bottom: 1px solid var(--border-color);
 }
-
 .items-table td {
     padding: 8px 10px;
     border-bottom: 1px solid var(--border-color);
     vertical-align: top;
 }
 
-/* Colonne numeriche: evita il ritorno a capo */
+/* LARGHEZZE COLONNE (somma ~100%) */
+.items-table th:nth-child(1), .items-table td:nth-child(1) { width: 42%; } /* Descrizione */
+.items-table th:nth-child(2), .items-table td:nth-child(2) { width: 10%; } /* U/M */
+.items-table th:nth-child(3), .items-table td:nth-child(3) { width: 8%;  } /* Quantità */
+.items-table th:nth-child(4), .items-table td:nth-child(4) { width: 14%; } /* Prezzo unitario */
+.items-table th:nth-child(5), .items-table td:nth-child(5) { width: 8%;  } /* IVA */
+.items-table th:nth-child(6), .items-table td:nth-child(6) { width: 9%;  } /* Totale */
+.items-table th:nth-child(7), .items-table td:nth-child(7) { width: 9%;  } /* Totale(IVA) */
+
+/* Descrizione: può andare a capo solo qui */
+.items-table td:nth-child(1) {
+    white-space: normal;
+    word-break: break-word;       /* impedisce che "invada" le altre colonne */
+}
+
+/* U/M: non spezzare e tienila separata dalla descrizione */
+.items-table th:nth-child(2),
+.items-table td:nth-child(2) {
+    white-space: nowrap;
+    text-align: center;           /* opzionale: centrato = più pulito */
+}
+
+/* Colonne numeriche: allineate a destra, senza a capo */
+.items-table th:nth-child(3),
+.items-table th:nth-child(4),
+.items-table th:nth-child(5),
+.items-table th:nth-child(6),
+.items-table th:nth-child(7),
 .items-table td:nth-child(3),
 .items-table td:nth-child(4),
 .items-table td:nth-child(5),
 .items-table td:nth-child(6),
 .items-table td:nth-child(7) {
-    text-align: right;
-    white-space: nowrap;
-    word-break: keep-all;
-}
-
-/* Allineamento colonne numeriche nell’intestazione */
-.items-table th:nth-child(3),
-.items-table th:nth-child(4),
-.items-table th:nth-child(5),
-.items-table th:nth-child(6),
-.items-table th:nth-child(7) {
     text-align: right;
     white-space: nowrap;
     word-break: keep-all;
@@ -213,14 +234,12 @@ body {
     color: var(--font-color-light);
     page-break-inside: avoid !important;
 }
-
 .notes-section h4 {
     line-height: 1 !important;
     margin-bottom: 0px !important;
     color: var(--font-color-dark);
     font-size: 9.5pt;
 }
-
 .notes-section .notes-content {
     white-space: pre-wrap;
     margin-top: 0 !important;
@@ -237,9 +256,9 @@ body {
 /* FOOTER */
 .invoice-footer {
     position: fixed;
-    bottom: 0;
-    left: 1cm;
-    right: 1cm;
+    bottom: 0; /* bordo inferiore pagina */
+    left: 1cm; 
+    right: 1cm; 
     text-align: center;
     font-size: 8pt;
     color: var(--font-color-light);
