@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Products;
 
+use App\Livewire\Traits\ProductFormLogic;
 use Exception;
 use App\Models\Product;
 use Livewire\Component;
@@ -10,16 +11,11 @@ use Illuminate\Support\Facades\Log;
 class ProductForm extends Component
 {
 
+    use ProductFormLogic;
+
     public ?Product $product;
 
-    public $name = '';
-    public $description = '';
-
-    public $default_vat_rate = '';
-
-    public $default_unit_price;
-
-    public $default_unit_of_measure= '';
+    
 
 
     public function mount(Product $product){
@@ -34,15 +30,22 @@ class ProductForm extends Component
         }
     }
 
-    public function rules(){
-        $product_id = $this->product?->id;
+    
 
-        return [
-            "name" => "required|unique:products,name," . $product_id,
-            "default_vat_rate" => "required|numeric|min:0",
-            "default_unit_price" => "required|numeric|min:0",
-            "default_unit_of_measure" => "nullable|string|max:100" 
-        ];
+    public function rules(){
+        $rules = $this->getRulesFromTrait();
+
+        $productId = $this->product?->id;
+
+        $rules['name'] = "required|unique:products,name," . $productId;
+
+        return $rules;
+    }
+
+    protected function getRulesFromTrait():array{
+        return (new class {
+            use ProductFormLogic;
+        })->rules();
     }
 
     public function save(){

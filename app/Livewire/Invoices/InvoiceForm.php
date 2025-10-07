@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -59,39 +60,7 @@ class InvoiceForm extends Component
             $this->generateInvoiceNumber();
         }
     }
-
-
-    // public function rules(){
-    //     $invoiceId = $this->invoice?->id;
-
-    //     return [
-    //         'client_id' => 'required|exists:clients,id',
-    //         'invoice_number' => 'required|string|max:255|unique:invoices,invoice_number,' . $invoiceId,
-    //         'issue_date' => 'required|date',
-    //         'due_date' => 'required|date|after_or_equal:issue_date',
-    //         'notes' => 'nullable|string|max:1000',
-    //         'status' => 'required|in:' . implode(',', $allowedStatuses),
-            
-
-    //         //Regola che controlla se i prodotti sono stati aggiunti
-    //         'invoiceItems' => 'required|array|min:1',
-
-    //         //Regole per le voci fattura
-    //         "invoiceItems.*.description"=> [
-    //             'required',
-    //             'string',
-    //             'max:255',
-    //         ],
-    //         "invoiceItems.*.quantity" => 'required|numeric|min:1',
-    //         "invoiceItems.*.unit_price" => [
-    //             'required',
-    //             'numeric',
-    //         ],
-    //         "invoiceItems.*.vat_rate" => 'required|numeric|min:0',
-    //     ];
-    // }
-
-    
+  
 
     public function rules()
     {
@@ -124,43 +93,7 @@ class InvoiceForm extends Component
     }
 
 
-    // public function generateInvoiceNumber()
-    // {
-    //     if ($this->invoice->exists && !empty($this->invoice->invoice_number)) {
-    //         $this->invoice_number = $this->invoice->invoice_number;
-    //         return;
-    //     }
-
-    //     $year = date('Y');
-    //     $prefix = "FATT-{$year}-";
-
-    //     // Trova l'ultimo numero usato per quell'anno
-    //     $lastInvoice = Invoice::whereYear('issue_date', $year)
-    //         ->where('invoice_number', 'like', "$prefix%")
-    //         ->orderBy('invoice_number', 'desc')
-    //         ->first();
-
-    //     $nextNumber = 1;
-
-    //     if ($lastInvoice) {
-    //         $parts = explode('-', $lastInvoice->invoice_number);
-    //         if (count($parts) === 3) {
-    //             $lastNumber = (int) end($parts);
-    //             $nextNumber = $lastNumber + 1;
-    //         }
-    //     }
-
-    //     // Verifica che il numero non esista già (loop nel raro caso di buco)
-    //     do {
-    //         $newInvoiceNumber = $prefix . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
-    //         $exists = Invoice::where('invoice_number', $newInvoiceNumber)->exists();
-    //         $nextNumber++;
-    //     } while ($exists);
-
-    //     $this->invoice_number = $newInvoiceNumber;
-
-    //     //Log::info('Generated invoice number: ' . $this->invoice_number);
-    // }
+    
 
 
     public function generateQuoteNumber()
@@ -401,6 +334,26 @@ class InvoiceForm extends Component
             'vat_amount' => round($vatAmount, 2),
             'total' => round($total, 2),
         ];
+    }
+
+
+     /**
+     * Ascolta l'evento 'productCreated' inviato dalla modale.
+     * @param int $productId L'ID del prodotto appena creato.
+     */
+    #[On('productCreated')]
+    public function handleProductCreated($productId)
+    {
+        // Cerca il prodotto appena creato nel database
+        $product = Product::find($productId);
+
+        if ($product) {
+            // 1. Aggiunge il nuovo prodotto alle voci della fattura corrente
+            $this->addInvoiceItem($product);
+
+            // 2. Imposta il messaggio di successo che verrà mostrato
+            session()->flash('message', 'Prodotto creato e aggiunto con successo!');
+        }
     }
 
     

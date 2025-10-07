@@ -108,7 +108,7 @@
                             </div>
                         @enderror
 
-                        <div class="sm:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden">
+                        <div class="sm:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden mb-4">
                             <div class="overflow-x-auto sm:overflow-hidden">
                                 <table class="min-w-full divide-y divide-gray-700 text-gray-200">
                                     <thead class="font-bold bg-gray-800">
@@ -194,9 +194,14 @@
                         </div>
 
                         <div class="sm:col-span-2 mb-4">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">
-                                {{ __('Add Products') }}
-                            </h3>
+                            <div class="flex justify-between items-center mt-10 mb-4">
+                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white ">
+                                    {{ __('Add Products') }}
+                                </h3>
+
+                                <button type="button" wire:click="$dispatch('openProductModal')" class=" px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 disabled:opacity-25 transition ease-in-out duration-150">{{__('Add Product')}}</button>
+                            </div>
+                           
 
                             
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -238,7 +243,7 @@
                         </div>
                         
 
-                        <div class="sm:col-span-2 grid grid-cols-1  my-4 pt-2">
+                        <div class="sm:col-span-2 grid grid-cols-1 mt-8 my-4 pt-2">
 
                             <h2 class="sm:col-span-2 mb-4 text-xl font-bold text-gray-900 dark:text-white">{{__('Resume')}}</h2>
                                 
@@ -291,5 +296,6 @@
         </section>
     </div>
     
+<livewire:products.product-modal />
 
 </div>
