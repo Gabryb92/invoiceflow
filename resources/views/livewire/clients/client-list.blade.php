@@ -1,4 +1,4 @@
-<div class="mx-2">
+<div class="">
     <x-slot name="header" class="">
         <div class="flex ml-auto justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -32,7 +32,7 @@
     
 
 
-    <div class="border border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden">
+    <div class="border border-gray-700 rounded-lg overflow-x-auto sm:overflow-hidden m-2">
         
         <table class="min-w-full divide-y divide-gray-700 text-gray-200">
         <thead class="font-bold bg-gray-800">
@@ -101,16 +101,17 @@
             @empty
                 <tr>
                     <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                        Nessun cliente trovato
+                        {{ __('No Client Found') }}
                     </td>
                 </tr>
             @endforelse
         </tbody>
     </table>
+    
     </div>
    
-
-    <div class="mt-4 py-2">
+    <div class="mt-4 py-2 mx-2">
         {{ $clients->links() }}
     </div>
+    
 </div>
